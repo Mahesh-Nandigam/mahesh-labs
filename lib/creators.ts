@@ -1,7 +1,8 @@
 export const creators = [
   {
     name: "Mahesh Nandigam",
-    role: "Host & co-creator",
+    role: "Host",
+    eyebrow: "Host",
     image: "/assets/mahesh-nandigam.jpg",
     portraitClass: "",
     description: "Mahesh brings curiosity to every conversation, asking guests about the first steps, lessons, and choices behind their journey in tech.",
@@ -14,6 +15,7 @@ export const creators = [
   {
     name: "Mahesh Moholkar",
     role: "Co-creator",
+    eyebrow: "Behind the scenes",
     image: "/assets/mahesh-moholkar.jpg",
     portraitClass: "moholkar-portrait",
     description: "Mahesh brings a builder’s perspective to MaheshLabs, helping shape the ideas, the conversations, and the way each story reaches the screen.",

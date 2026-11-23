@@ -57,7 +57,7 @@ export function OurTeam() {
             <div className="team-identity">
               <Image className={creator.portraitClass} src={creator.image} width={90} height={90} alt={creator.name} />
               <div>
-                <p className="eyebrow">CO-CREATOR</p>
+                <p className="eyebrow">{creator.eyebrow.toUpperCase()}</p>
                 <h3>{creator.name}</h3>
                 <p>{creator.role}</p>
               </div>
