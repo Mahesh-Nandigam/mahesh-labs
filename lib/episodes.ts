@@ -17,7 +17,7 @@ export interface Episode {
   videoId: string | null;
   duration: string;
   status: string;
-  placeholder?: boolean;
+  externalPlayback?: boolean;
   teaser?: string;
   teaserDuration?: number;
   chapters: Chapter[];
@@ -34,7 +34,7 @@ export const videoUrl = (episode: Episode, seconds = 0) => {
 };
 export const getEpisode = (number: number) => episodes.find((episode) => episode.number === number);
 export const sortedEpisodes = [...episodes].sort((a, b) =>
-  Number(Boolean(b.videoId)) - Number(Boolean(a.videoId)) || b.number - a.number,
+  Number(Boolean(a.videoId)) - Number(Boolean(b.videoId)) || b.number - a.number,
 );
 
 export interface ChapterMatch {

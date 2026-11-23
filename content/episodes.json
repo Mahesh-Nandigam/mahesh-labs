@@ -1,21 +1,45 @@
 [
   {
     "number": 1,
-    "guest": null,
+    "guest": "Karthik",
     "title": "Only 50 LeetCode problems. Three job offers. Is DSA overhyped?",
-    "description": "The conversation that started MaheshLabs. Watch the original episode on Mahesh Nandigam’s YouTube channel; full episode notes will be added here soon.",
+    "description": "Karthik joins the first MaheshLabs conversation to talk about DSA versus development, building real projects, campus placements, and securing three job offers despite a low GPA.",
     "topics": [
       "DSA",
       "Careers"
     ],
-    "role": "The original MaheshLabs conversation",
-    "image": "/assets/episode-01-placeholder.jpg",
+    "role": "Development · DSA · Campus placements",
+    "image": "/assets/episode-01.png",
     "videoId": "fuUFEIzRTbM",
     "duration": "56 min",
-    "status": "Original episode",
-    "placeholder": true,
-    "chapters": [],
-    "links": []
+    "status": "Watch now",
+    "externalPlayback": true,
+    "chapters": [
+      { "time": "00:00", "seconds": 0, "title": "Episode highlights" },
+      { "time": "00:30", "seconds": 30, "title": "Welcome to MaheshLabs: meet Karthik" },
+      { "time": "02:11", "seconds": 131, "title": "Karthik’s passion for building" },
+      { "time": "03:07", "seconds": 187, "title": "Is DSA overhyped?" },
+      { "time": "06:45", "seconds": 405, "title": "50 LeetCode problems: development versus DSA" },
+      { "time": "08:41", "seconds": 521, "title": "Campus placement filters and CGPA" },
+      { "time": "10:43", "seconds": 643, "title": "Building Calmet and PromptBI" },
+      { "time": "18:42", "seconds": 1122, "title": "Recovering after losing projects" },
+      { "time": "20:03", "seconds": 1203, "title": "Escaping tutorial hell" },
+      { "time": "24:04", "seconds": 1444, "title": "Learning by building with AI" },
+      { "time": "28:22", "seconds": 1702, "title": "AI and the future of junior developers" },
+      { "time": "33:15", "seconds": 1995, "title": "Mistakes across four years of engineering" },
+      { "time": "38:01", "seconds": 2281, "title": "Three offers despite a low GPA" },
+      { "time": "39:26", "seconds": 2366, "title": "Inconsistency and coding burnout" },
+      { "time": "45:23", "seconds": 2723, "title": "Starting with DSA or development" },
+      { "time": "47:24", "seconds": 2844, "title": "A roadmap for each year of engineering" },
+      { "time": "50:42", "seconds": 3042, "title": "Life after college: a job or a company" },
+      { "time": "55:16", "seconds": 3316, "title": "Coding and consistency" },
+      { "time": "56:12", "seconds": 3372, "title": "Final thoughts" }
+    ],
+    "links": [
+      { "name": "GitHub", "url": "https://github.com/CMKarth1kRaj" },
+      { "name": "LinkedIn", "url": "https://www.linkedin.com/in/cmkarthikraj/" },
+      { "name": "Instagram", "url": "https://www.instagram.com/cmkarthik_raj/" }
+    ]
   },
   {
     "number": 2,

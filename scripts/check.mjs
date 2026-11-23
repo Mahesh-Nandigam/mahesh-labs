@@ -7,7 +7,8 @@ const seen=new Set();
 for(const episode of episodes){
   assert.ok(!seen.has(episode.number),'Episode numbers must be unique');seen.add(episode.number);
   await access(new URL('public'+episode.image,root));
-  assert.ok((episode.guest||episode.placeholder)&&episode.title&&episode.description);
+  assert.ok(episode.guest&&episode.title&&episode.description);
+  if(episode.externalPlayback)assert.ok(episode.videoId,'External playback requires a YouTube video');
   if(episode.teaser)await access(new URL("public"+episode.teaser,root));
   assert.ok(episode.videoId===null||/^[\w-]{11}$/.test(episode.videoId),'Valid YouTube video ID required');
   let last=-1;
