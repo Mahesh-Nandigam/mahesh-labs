@@ -1,0 +1,391 @@
+[
+  {
+    "number": 1,
+    "guest": null,
+    "title": "Only 50 LeetCode problems. Three job offers. Is DSA overhyped?",
+    "description": "The conversation that started MaheshLabs. Watch the original episode on Mahesh Nandigam’s YouTube channel; full episode notes will be added here soon.",
+    "topics": [
+      "DSA",
+      "Careers"
+    ],
+    "role": "The original MaheshLabs conversation",
+    "image": "/assets/episode-01-placeholder.jpg",
+    "videoId": "fuUFEIzRTbM",
+    "duration": "56 min",
+    "status": "Original episode",
+    "placeholder": true,
+    "chapters": [],
+    "links": []
+  },
+  {
+    "number": 2,
+    "guest": "Ria Khatoniar",
+    "title": "GSoC twice. A path into AI & research.",
+    "description": "Two GSoC selections, research internships, and a role at Nutanix. Ria talks about finding her own path, approaching research labs, and using AI without giving up your engineering judgment.",
+    "topics": [
+      "GSoC",
+      "AI & research",
+      "Careers"
+    ],
+    "role": "ML4Sci · GSoC 2025 & 2026",
+    "image": "/assets/episode-02.jpg",
+    "videoId": "kMeQgxn6R4w",
+    "duration": "73 min",
+    "status": "Watch now",
+    "chapters": [
+      {
+        "time": "00:00",
+        "seconds": 0,
+        "title": "Episode highlights"
+      },
+      {
+        "time": "00:38",
+        "seconds": 38,
+        "title": "MaheshLabs intro"
+      },
+      {
+        "time": "00:41",
+        "seconds": 41,
+        "title": "Meet Ria Khatoniar"
+      },
+      {
+        "time": "03:13",
+        "seconds": 193,
+        "title": "Finding a path into research"
+      },
+      {
+        "time": "10:26",
+        "seconds": 626,
+        "title": "What private AI inference involves"
+      },
+      {
+        "time": "12:15",
+        "seconds": 735,
+        "title": "DSA versus development"
+      },
+      {
+        "time": "17:15",
+        "seconds": 1035,
+        "title": "Research internships and approaching labs"
+      },
+      {
+        "time": "25:48",
+        "seconds": 1548,
+        "title": "From a research question to a paper"
+      },
+      {
+        "time": "33:14",
+        "seconds": 1994,
+        "title": "Using AI without losing engineering judgment"
+      },
+      {
+        "time": "39:17",
+        "seconds": 2357,
+        "title": "Does using more tokens mean better work?"
+      },
+      {
+        "time": "43:17",
+        "seconds": 2597,
+        "title": "Two GSoC selections with ML4Sci"
+      },
+      {
+        "time": "52:28",
+        "seconds": 3148,
+        "title": "What helped and slowed her progress"
+      },
+      {
+        "time": "01:00:18",
+        "seconds": 3618,
+        "title": "A college roadmap"
+      },
+      {
+        "time": "01:08:08",
+        "seconds": 4088,
+        "title": "Ambition and a broader definition of success"
+      },
+      {
+        "time": "01:12:49",
+        "seconds": 4369,
+        "title": "Closing thanks"
+      },
+      {
+        "time": "01:13:03",
+        "seconds": 4383,
+        "title": "Follow for more"
+      }
+    ],
+    "links": [
+      {
+        "name": "Medium",
+        "url": "https://medium.com/@riakhatoniar1234"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ria-khatoniar-275061207"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com/RiaK912"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/ambiciosa912"
+      }
+    ]
+  },
+  {
+    "number": 3,
+    "guest": "J Prakash",
+    "title": "From college to open source & remote work.",
+    "description": "GSoC with openSUSE, LFX mentorship with Volcano, and the journey into remote work. J Prakash shares what goes into meaningful contributions, useful projects, and learning beyond tutorials.",
+    "topics": [
+      "Open source",
+      "GSoC",
+      "Careers"
+    ],
+    "role": "GSoC · LFX mentorship",
+    "image": "/assets/episode-03-open-source-to-job.jpg",
+    "videoId": "4rsdSg4dU9g",
+    "duration": "78 min",
+    "status": "Watch now",
+    "chapters": [
+      {
+        "time": "00:00",
+        "seconds": 0,
+        "title": "Highlights and intro"
+      },
+      {
+        "time": "00:51",
+        "seconds": 51,
+        "title": "Meet J Prakash"
+      },
+      {
+        "time": "01:43",
+        "seconds": 103,
+        "title": "From college to open source and remote work"
+      },
+      {
+        "time": "10:24",
+        "seconds": 624,
+        "title": "DSA, development and finding the balance"
+      },
+      {
+        "time": "15:27",
+        "seconds": 927,
+        "title": "Building a resume that gets noticed"
+      },
+      {
+        "time": "19:02",
+        "seconds": 1142,
+        "title": "Projects, demos and engineering choices"
+      },
+      {
+        "time": "22:15",
+        "seconds": 1335,
+        "title": "Can you explain the project you built?"
+      },
+      {
+        "time": "24:12",
+        "seconds": 1452,
+        "title": "GSoC and LFX: choosing a project and getting started"
+      },
+      {
+        "time": "36:59",
+        "seconds": 2219,
+        "title": "Preparing for open source from your current skill level"
+      },
+      {
+        "time": "40:26",
+        "seconds": 2426,
+        "title": "Money, community and enjoying the journey"
+      },
+      {
+        "time": "44:25",
+        "seconds": 2665,
+        "title": "Learning from experienced maintainers"
+      },
+      {
+        "time": "46:59",
+        "seconds": 2819,
+        "title": "Hackathons: build, learn and try again"
+      },
+      {
+        "time": "49:56",
+        "seconds": 2996,
+        "title": "What maintainers look for in contributors"
+      },
+      {
+        "time": "54:08",
+        "seconds": 3248,
+        "title": "Using AI while owning the code you submit"
+      },
+      {
+        "time": "55:48",
+        "seconds": 3348,
+        "title": "Working through issues with mentors"
+      },
+      {
+        "time": "01:01:28",
+        "seconds": 3688,
+        "title": "Motivation, money and choosing your own path"
+      },
+      {
+        "time": "01:07:22",
+        "seconds": 4042,
+        "title": "Learning beyond tutorials"
+      },
+      {
+        "time": "01:12:09",
+        "seconds": 4329,
+        "title": "Long-term ambitions and family"
+      },
+      {
+        "time": "01:17:53",
+        "seconds": 4673,
+        "title": "Closing thanks"
+      }
+    ],
+    "links": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/jay-prakash-9548b93b3/"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/katara-jayprakash"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com/katara5_twt"
+      }
+    ]
+  },
+  {
+    "number": 4,
+    "guest": "Anishka Yadav",
+    "title": "First year. First contributions. GSoC.",
+    "description": "Anishka shares how she started contributing in her first semester and got into GSoC in her second. A conversation about Liquid Galaxy, mentorship, DSA, AI, and starting before you feel ready.",
+    "topics": [
+      "GSoC",
+      "Open source",
+      "Careers"
+    ],
+    "role": "GSoC 2025 · Liquid Galaxy",
+    "image": "/assets/episode-04.jpg",
+    "videoId": null,
+    "duration": "49 min",
+    "status": "Episode preview",
+    "chapters": [
+      {
+        "time": "00:00",
+        "seconds": 0,
+        "title": "Highlights and intro"
+      },
+      {
+        "time": "00:50",
+        "seconds": 50,
+        "title": "Meet Anishka Yadav"
+      },
+      {
+        "time": "01:00",
+        "seconds": 60,
+        "title": "Starting coding and getting into GSoC"
+      },
+      {
+        "time": "03:52",
+        "seconds": 232,
+        "title": "Why she chose not to do GSoC again"
+      },
+      {
+        "time": "04:49",
+        "seconds": 289,
+        "title": "DSA, interviews and problem-solving"
+      },
+      {
+        "time": "09:22",
+        "seconds": 562,
+        "title": "Choosing a GSoC organization"
+      },
+      {
+        "time": "13:58",
+        "seconds": 838,
+        "title": "GSoC interviews and preparation timeline"
+      },
+      {
+        "time": "19:04",
+        "seconds": 1144,
+        "title": "Writing a proposal and using AI"
+      },
+      {
+        "time": "21:21",
+        "seconds": 1281,
+        "title": "Flipkart Girls Wanna Code"
+      },
+      {
+        "time": "24:25",
+        "seconds": 1465,
+        "title": "LinkedIn CoachIn: selection and mentorship"
+      },
+      {
+        "time": "28:03",
+        "seconds": 1683,
+        "title": "DSA, development and AI: what to focus on"
+      },
+      {
+        "time": "33:24",
+        "seconds": 2004,
+        "title": "Learning new technologies and building a roadmap"
+      },
+      {
+        "time": "38:35",
+        "seconds": 2315,
+        "title": "Building consistency with coding"
+      },
+      {
+        "time": "41:44",
+        "seconds": 2504,
+        "title": "Achievements, rejection and resilience"
+      },
+      {
+        "time": "43:49",
+        "seconds": 2629,
+        "title": "Getting started with AI and ML"
+      },
+      {
+        "time": "46:22",
+        "seconds": 2782,
+        "title": "Career goals in software and AI"
+      },
+      {
+        "time": "47:32",
+        "seconds": 2852,
+        "title": "Advice for beginners: start before you’re ready"
+      },
+      {
+        "time": "49:03",
+        "seconds": 2943,
+        "title": "Closing thanks"
+      }
+    ],
+    "links": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/anishka-027771276/"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/Anishka2006"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com/Anishka172449"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/__anishka10__/"
+      }
+    ],
+    "teaser": "/media/episode-04-teaser.mp4",
+    "teaserDuration": 52
+  }
+]

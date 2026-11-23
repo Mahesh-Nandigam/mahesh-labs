@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+.sites-runtime/
+.sites-checkout/
+*.zip
+*.log
+.next/
+out/
+*.tsbuildinfo
+.env*
+!.env.example
