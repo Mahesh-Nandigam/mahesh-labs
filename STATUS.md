@@ -4,6 +4,8 @@ Updated November 23, 2026.
 
 - Next.js 16 App Router, React 19, TypeScript.
 - Original editorial design and episode content preserved.
+- Episode pages have a paper-and-blue player control bar with play/pause, 10-second skips, chapter markers, time, volume, playback speed, keyboard shortcuts, and fullscreen. YouTube loads after play or chapter selection. A settings button restores YouTube controls for captions and quality; playback position, speed, and mute are retained. YouTube’s own overlays remain provider-controlled.
+- Playback speed uses a custom two-column menu with the current choice marked, matching paper colors, and keyboard navigation. The volume slider uses the same slim track and small thumb as the timeline.
 - The hero features a carousel of released episodes, ordered latest to oldest from left to right. Titles use the full caption width and wrap naturally, with a single play button on the thumbnail. The left control moves to newer episodes and the right control to previous episodes, with episode dots, keyboard navigation, and touch swipes.
 - Mahesh Moholkar’s supplied portrait appears in the hero and creator profile; the missing PNG reference was replaced with the actual optimized JPEG. Both instances were verified loaded in the browser.
 - Both creators are featured in the hero. Profile content is centralized in lib/creators.ts.
@@ -17,6 +19,8 @@ Updated November 23, 2026.
 
 Validation passed:
 
+- Speed menu: real rate changes, arrow-key selection, Escape, Tab, outside-click dismissal, and focus return passed browser checks. The menu fits at 320px and 390px without page overflow.
+- Custom player: real YouTube playback, pause, skips, speed, mute, chapter seeking and highlighting, fullscreen, and returning to YouTube controls were checked in the browser. At 320px and 390px, controls wrap without page overflow.
 - Featured carousel: previous/next, episode dots, keyboard navigation, disabled boundaries, and play links checked in the browser. No horizontal overflow at 320, 390, or 1280px; inactive slides are hidden from keyboard and assistive technology.
 - Thumbnail blur is limited to unreleased episodes; released thumbnails remain sharp. Playback labels, icons, destinations, and layouts at 1280, 390, and 320px were checked in the browser, with no horizontal overflow.
 - Episode card typography checked at 1280, 768, 390, and 320px: no page or card overflow, 10px title-to-role spacing, and aligned desktop footers. TypeScript, content checks, production build, and export checks passed after the update.
