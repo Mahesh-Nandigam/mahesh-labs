@@ -26,19 +26,24 @@ export function EpisodeArchive() {
     </div>
     <div className="episode-grid" aria-live="polite">
       {visible.map((episode) => {
+        const released = Boolean(episode.videoId);
         const external = Boolean(episode.externalPlayback && episode.videoId);
         const href = external ? videoUrl(episode)! : episodePath(episode.number);
         const linkProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+        const action = released ? "Episode" : episode.teaser ? "Teaser" : "Preview";
+        const actionLabel = `${released ? "Watch episode" : episode.teaser ? "Watch teaser for episode" : "Preview episode"} ${episode.number} with ${episode.guest}${external ? " on YouTube" : ""}`;
         return <article className="episode-card" key={episode.number}>
-          <Link className="episode-art" href={href} {...linkProps} aria-label={`${external ? "Watch" : "Explore"} episode ${episode.number} with ${episode.guest}${external ? " on YouTube" : ""}`}>
-            <Image src={episode.image} alt={`${episode.guest} and Mahesh Nandigam`} width={1280} height={720} sizes="(max-width: 760px) 100vw, 33vw" />
-            {episode.videoId ? <span className="small-play"><PlayIcon /></span> : <span className="coming-badge">COMING SOON</span>}
+          <Link className={`episode-art${released ? "" : " episode-art-unreleased"}`} href={href} {...linkProps} aria-label={`${actionLabel}${released ? "" : ". Full episode coming soon"}`}>
+            <Image src={episode.image} alt={`${episode.guest} and Mahesh Nandigam`} width={1280} height={720} sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw" />
+            {released ? <span className="small-play"><PlayIcon /></span> : <span className="episode-coming-soon">Coming soon</span>}
             <span className="duration">{episode.duration}</span>
           </Link>
-          <div className="episode-meta"><span>EP. {String(episode.number).padStart(2, "0")}</span><span className="meta-dot" aria-hidden="true">/</span><span>{episode.guest?.toUpperCase()}</span></div>
-          <h3><Link className="episode-title" href={href} {...linkProps}>{episode.title}</Link></h3>
-          <p>{episode.role}</p>
-          <div className="episode-card-foot"><span className="topic-label">{episode.topics.slice(0, 2).join(" · ")}</span><Link className="card-open" href={href} {...linkProps}>{external ? "Watch on YouTube" : episode.videoId ? "Explore episode" : episode.teaser ? "Watch the teaser" : "Episode preview"}</Link></div>
+          <div className="episode-copy">
+            <div className="episode-meta"><span className="episode-number">EP. {String(episode.number).padStart(2, "0")}</span><span className="episode-guest">{episode.guest}</span></div>
+            <h3><Link className="episode-title" href={href} {...linkProps}>{episode.title}</Link></h3>
+            <p className="episode-role">{episode.role}</p>
+          </div>
+          <div className="episode-card-foot"><span className="topic-label">{episode.topics.slice(0, 2).join(" · ")}</span><Link className="card-open" href={href} {...linkProps} aria-label={actionLabel}>{(released || episode.teaser) && <span className="card-play"><PlayIcon /></span>}<span>{action}</span></Link></div>
         </article>;
       })}
     </div>

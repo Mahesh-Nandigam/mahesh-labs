@@ -9,12 +9,15 @@ Updated November 23, 2026.
 - Mahesh Moholkar’s Website and LinkedIn links point to https://maheshmoholkar.in/ and https://www.linkedin.com/in/mahesh1822/.
 - Co-creator wording replaces the restrictive behind-the-scenes/production label.
 - The section heading is “Mahesh & Mahesh. One shared curiosity.” Navigation says “The creators.”
-- Episode cards share title, role, and footer rows. Creator cards have equal heights, including the mobile stack.
+- Episode cards use 28–30px semibold titles, 15px guest names, 16px supporting text, and subtle blue episode badges. Each title and role stay together with consistent spacing; card footers align across each row. Tablet layouts use two columns. Creator cards have equal heights, including the mobile stack.
+- Unreleased episode thumbnails use the selected editorial serif style: a gentle 1px blur, warm paper wash, and centered 36px italic Instrument Serif “Coming soon” text in the site’s ink color. Card playback links use “Teaser” or “Episode” with circular play icons and descriptive accessible labels.
 - The favicon is a single M, with SVG, ICO, and Apple touch icon variants.
 - “New episodes every Saturday” appears in the hero and subscription section.
 
 Validation passed:
 
+- Thumbnail blur is limited to unreleased episodes; released thumbnails remain sharp. Playback labels, icons, destinations, and layouts at 1280, 390, and 320px were checked in the browser, with no horizontal overflow.
+- Episode card typography checked at 1280, 768, 390, and 320px: no page or card overflow, 10px title-to-role spacing, and aligned desktop footers. TypeScript, content checks, production build, and export checks passed after the update.
 - npm run check: TypeScript, all episode records, chapters, asset references, and icons.
 - npm run build: optimized production build, homepage, all 3 episode routes, and 404.
 - node scripts/check-export.mjs: generated HTML, chapter content, episode links, and route exports.
