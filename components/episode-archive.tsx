@@ -35,8 +35,13 @@ export function EpisodeArchive() {
         return <article className="episode-card" key={episode.number}>
           <Link className={`episode-art${released ? "" : " episode-art-unreleased"}`} href={href} {...linkProps} aria-label={`${actionLabel}${released ? "" : ". Full episode coming soon"}`}>
             <Image src={episode.image} alt={`${episode.guest} and Mahesh Nandigam`} width={1280} height={720} sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw" />
-            {released ? <span className="small-play"><PlayIcon /></span> : <span className="episode-coming-soon">Coming soon</span>}
-            <span className="duration">{episode.duration}</span>
+            {released ? <>
+              <span className="small-play"><PlayIcon /></span>
+              <span className="duration">{episode.duration}</span>
+            </> : <span className="episode-preview-details">
+              <span className="episode-coming-soon">Coming soon</span>
+              {episode.teaser && <span className="episode-teaser-cue"><span className="episode-teaser-play"><PlayIcon /></span><span>{episode.teaserDuration ? `${episode.teaserDuration}s teaser` : "Watch teaser"}</span></span>}
+            </span>}
           </Link>
           <div className="episode-copy">
             <div className="episode-meta"><span className="episode-number">EP. {String(episode.number).padStart(2, "0")}</span><span className="episode-guest">{episode.guest}</span></div>

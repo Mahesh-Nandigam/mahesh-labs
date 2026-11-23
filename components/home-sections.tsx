@@ -11,7 +11,7 @@ export function Hero() {
 <section className="hero wrap" aria-labelledby="hero-title">
       <div className="hero-copy">
         <p className="eyebrow"><span className="little-mark" aria-hidden="true">✳</span> NEW EPISODES EVERY SATURDAY</p>
-        <h1 id="hero-title" className="hero-mission-title">Knowledge from<br />the top 0.1%.<br /><em>Open to everyone.</em></h1>
+        <h1 id="hero-title" className="hero-mission-title">We democratize<br />the knowledge of<br /><em>the top 0.1%.</em></h1>
         <p className="hero-description">The lessons, decisions, and hard-won insights of exceptional people in tech, shared through honest conversations. So you can learn from their experience and build your own path.</p>
         <div className="hero-actions">{latestEpisode && <Link className="button button-blue" href={episodePath(latestEpisode.number)}><span className="play-icon" aria-hidden="true"></span> Watch latest podcast</Link>}<a className="text-link" href="#episodes">Explore the conversations</a></div>
         <div className="hero-creators" aria-label="The people behind MaheshLabs">
@@ -33,7 +33,7 @@ export function Hero() {
 
 export function TopicRibbon() {
   return (
-<div className="topic-ribbon" aria-label="Topics we talk about"><div className="wrap ribbon-inner"><span>CODE &amp; CURIOSITY</span><span aria-hidden="true">✳</span><span>OPEN SOURCE</span><span aria-hidden="true">✳</span><span>REAL CAREERS</span><span aria-hidden="true">✳</span><span>AI &amp; WHAT’S NEXT</span><span aria-hidden="true">✳</span><span>YOUR OWN WAY</span></div></div>
+<div className="topic-ribbon" aria-label="Topics we talk about"><div className="wrap ribbon-inner"><span>CAREERS &amp; GROWTH</span><span aria-hidden="true">✳</span><span>BUSINESS &amp; IDEAS</span><span aria-hidden="true">✳</span><span>CREATIVITY</span><span aria-hidden="true">✳</span><span>LIFE &amp; CULTURE</span><span aria-hidden="true">✳</span><span>HUMAN STORIES</span></div></div>
   );
 }
 

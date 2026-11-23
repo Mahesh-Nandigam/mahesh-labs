@@ -11,7 +11,7 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
 .episode-page{max-width:1050px;padding-block:40px 75px}.episode-back{display:block;margin-bottom:25px}.episode-page-content{border:1px solid var(--line);border-radius:6px;overflow:hidden}.episode-page .dialog-body{padding:35px 40px}.episode-page h1{font-size:clamp(32px,4vw,48px);letter-spacing:-.045em;margin-block:15px 20px}.episode-page .dialog-columns h2{font-size:21px;letter-spacing:-.025em;margin-bottom:15px}.share-link-label{display:block;font-size:13px;color:var(--muted)}.share-fallback{display:block;margin-top:7px}.not-found{min-height:60vh}.not-found h1{font-size:clamp(40px,6vw,75px);letter-spacing:-.05em;margin-block:25px}.not-found>p:last-of-type{color:var(--muted);margin-bottom:30px}.feature-art{color:var(--blue)}.round-button{display:grid}.hero-actions .button{width:fit-content}
 @media(max-width:760px){.episode-page{padding-block:25px 45px}.episode-page .dialog-body{padding:25px 20px}.episode-page h1{font-size:30px}.episode-page .dialog-columns{gap:30px}}
 
-.hero h1.hero-mission-title { font-size: clamp(2.25rem, 4.6vw, 4.5rem); }
+.hero h1.hero-mission-title { font-size: clamp(2.25rem, 4.6vw, 4rem); }
 @media (max-width: 760px) {
   .hero h1.hero-mission-title { font-size: clamp(2.125rem, 8.5vw, 3.5rem); }
 }
@@ -85,23 +85,61 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
 }
 .episode-card { display: flex; flex-direction: column; }
 .episode-card .episode-art { flex-shrink: 0; }
-.episode-art-unreleased img,
-.episode-art-unreleased:hover img { filter: blur(1px); transform: scale(1.015); }
-.episode-coming-soon {
+.episode-art-unreleased::after {
+  content: "";
   position: absolute;
-  inset: 0;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, #101513b8);
+  pointer-events: none;
+}
+.episode-preview-details {
+  position: absolute;
+  inset: auto .75rem .75rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .625rem;
+}
+.episode-coming-soon {
+  padding: .5rem .875rem;
+  border: 1px solid #ffffff45;
+  border-radius: 100px;
+  background: var(--blue);
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #1015131a;
+}
+.episode-teaser-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px #0006;
+}
+.episode-teaser-play {
   display: grid;
   place-items: center;
-  padding: 1.5rem;
-  background: #f5f0e7ad;
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 2.25rem;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -.01em;
-  line-height: 1.1;
-  text-align: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--blue);
+  transition: background .2s, color .2s;
+}
+.episode-teaser-play .play-icon { margin-left: 2px; }
+.episode-art-unreleased:hover .episode-teaser-play,
+.episode-art-unreleased:focus-visible .episode-teaser-play {
+  background: var(--blue);
+  color: #fff;
 }
 .episode-copy { padding-block: 1.25rem 1.5rem; }
 .episode-meta {
@@ -209,17 +247,34 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
   .hero-creator strong > span { display: block; }
 }
 
-/* A shared capsule keeps the channel links visually balanced. */
-.header-socials { display: flex; align-items: center; gap: .875rem; margin-left: auto; flex-shrink: 0; }
-.header-social-label { font-size: .875rem; line-height: 1.4; color: var(--muted); white-space: nowrap; }
-.header-social-links { display: flex; align-items: center; gap: .25rem; padding: .1875rem; border: 1px solid var(--line); border-radius: 100px; background: #ffffff40; }
-.header-social-link { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 3.25rem; height: 2.75rem; padding: 0; border-radius: 100px; transition: background .2s, color .2s; }
-.header-social-link:focus-visible { outline-offset: 3px; }
-.header-social-link svg { display: block; width: 1rem; height: 1rem; flex-shrink: 0; }
-.header-social-link.header-subscribe { margin: 0; min-height: 2.75rem; background: var(--blue); color: #fff; }
-.header-social-link.header-subscribe svg { display: block; width: 1.25rem; height: 1.25rem; }
-.header-social-link.header-subscribe:hover { background: #1549b4; }
-.header-x:hover { background: var(--ink); color: var(--paper); }
+.site-header .header-subscribe { margin-left: auto; flex-shrink: 0; font-size: .875rem; }
+.site-header nav a[aria-current="page"] { color: var(--blue); }
+.socials-page { padding-block: 5.5rem 6.5rem; }
+.socials-intro { max-width: 43rem; margin-bottom: 3.5rem; }
+.socials-intro > .eyebrow { color: var(--blue); font-size: .875rem; }
+.socials-intro h1 { margin-block: 1.5rem; font-size: clamp(2.75rem, 5vw, 4.75rem); letter-spacing: -.05em; line-height: 1.06; }
+.socials-intro h1 em { color: var(--blue); }
+.socials-intro > p:last-child { max-width: 33rem; color: var(--muted); font-size: 1.0625rem; line-height: 1.75; }
+.socials-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.social-card { display: flex; flex-direction: column; min-width: 0; padding: 1.75rem; border: 1px solid var(--line); border-radius: .375rem; background: #ffffff35; }
+.social-card-top { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; margin-bottom: .875rem; }
+.social-card-top .eyebrow { color: var(--muted); font-size: .75rem; letter-spacing: .08em; }
+.social-platform-icon { display: grid; place-items: center; width: 3rem; height: 3rem; color: var(--blue); border: 1px solid #245bcc26; border-radius: 50%; background: #245bcc08; }
+.social-platform-icon svg { width: 1.5rem; height: 1.5rem; }
+.social-card h2 { font-size: 1.875rem; letter-spacing: -.035em; line-height: 1.2; }
+.social-description { margin-block: 1rem 1.75rem; color: var(--muted); font-size: 1rem; line-height: 1.75; }
+.social-card-action { display: flex; align-items: center; min-height: 3.5rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line); }
+.social-card-action .text-link { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: .875rem; }
+.social-card-links { display: grid; gap: .25rem; }
+@media (max-width: 1100px) {
+  .socials-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .socials-page { padding-block: 3rem 4rem; }
+  .socials-intro { margin-bottom: 2rem; }
+  .socials-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .social-card { padding: 1.5rem; }
+}
 .episode-teaser { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #101513; }
 @media (max-width: 960px) {
   .site-header nav { display: none; position: absolute; top: calc(100% - 1px); left: 0; right: 0; padding: 1.5rem; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 15px 20px #0001; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
@@ -231,8 +286,6 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
   .site-header .brand img { width: 8.895349rem; }
   .nav-shell { gap: .5rem; }
   .menu-toggle { width: 2.75rem; height: 2.75rem; }
-  .header-social-label { display: none; }
-  .header-social-link { width: 2.75rem; }
 }
 @media (max-width: 380px) {
   .site-header .brand img { width: 7.848837rem; }

@@ -94,9 +94,9 @@ export function EpisodeActions({ episode }: { episode: Episode }) {
   return <>
     <div className="dialog-actions">
       <a className="button button-blue" href={videoUrl(episode) || subscribeUrl} target="_blank" rel="noopener noreferrer">{episode.videoId ? "Watch on YouTube" : "Subscribe on YouTube"}</a>
-      <button className="button button-outline" type="button" onClick={share}>{copied ? "Link copied" : "Copy episode link"}</button>
+      {episode.videoId && <button className="button button-outline" type="button" onClick={share}>{copied ? "Link copied" : "Copy episode link"}</button>}
     </div>
-    <span className="sr-only" role="status">{copied ? "Episode link copied." : ""}</span>
-    {fallbackUrl && <label className="share-link-label">Copy this episode link<input className="share-fallback" ref={fallback} value={fallbackUrl} readOnly onFocus={(event) => event.target.select()} onClick={() => fallback.current?.select()} /></label>}
+    {episode.videoId && <span className="sr-only" role="status">{copied ? "Episode link copied." : ""}</span>}
+    {episode.videoId && fallbackUrl && <label className="share-link-label">Copy this episode link<input className="share-fallback" ref={fallback} value={fallbackUrl} readOnly onFocus={(event) => event.target.select()} onClick={() => fallback.current?.select()} /></label>}
   </>;
 }
