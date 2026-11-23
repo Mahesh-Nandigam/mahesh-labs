@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "MaheshLabs",
-    images: [{ url: "/assets/episode-03-open-source-to-job.jpg", width: 1280, height: 720 }],
+    images: [{ url: "/assets/episode-04-j-prakash-open-source-to-job.png", width: 1280, height: 720 }],
   },
   twitter: { card: "summary_large_image" },
   icons: {

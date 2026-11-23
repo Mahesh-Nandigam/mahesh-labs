@@ -19,7 +19,7 @@ export function Header() {
   return <header className="site-header">
     <div className="nav-shell wrap">
       <Link className="brand" href="/" aria-label="MaheshLabs home" onClick={() => setMenuOpen(false)}>
-        <Image src="/assets/logo.svg" width={185} height={35} alt="MaheshLabs" priority />
+        <Image src="/assets/logo.svg" width={194} height={35} alt="MaheshLabs" priority />
       </Link>
       <nav id="navigation" className={menuOpen ? "is-open" : ""} aria-label="Main navigation">
         <Link href="/#episodes" onClick={() => setMenuOpen(false)}>The conversations</Link>

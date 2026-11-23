@@ -48,13 +48,13 @@ export function findChapters(query: string): ChapterMatch[] {
     episode.chapters.map((chapter) => ({ episode, chapter })),
   );
   if (!term) {
-    const featured = [
-      [3, 1452],
-      [2, 1994],
-      [3, 4042],
+    const featured: [string, number][] = [
+      ["4rsdSg4dU9g", 1452],
+      ["kMeQgxn6R4w", 1994],
+      ["4rsdSg4dU9g", 4042],
     ];
-    return featured.flatMap(([episodeNumber, seconds]) =>
-      chapters.filter((item) => item.episode.number === episodeNumber && item.chapter.seconds === seconds),
+    return featured.flatMap(([videoId, seconds]) =>
+      chapters.filter((item) => item.episode.videoId === videoId && item.chapter.seconds === seconds),
     );
   }
   return chapters.filter(({ episode, chapter }) => {

@@ -1,17 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { creators } from "@/lib/creators";
-import { episodes } from "@/lib/episodes";
+import { episodes, episodePath } from "@/lib/episodes";
 import { FeaturedEpisodes } from "./featured-episodes";
 
 export function Hero() {
+  const releasedEpisodes = episodes.filter((episode) => episode.videoId).sort((a, b) => b.number - a.number);
+  const latestEpisode = releasedEpisodes[0];
   return (
 <section className="hero wrap" aria-labelledby="hero-title">
       <div className="hero-copy">
         <p className="eyebrow"><span className="little-mark" aria-hidden="true">✳</span> NEW EPISODES EVERY SATURDAY</p>
-        <h1 id="hero-title">Good questions.<br />Real <em>journeys.</em></h1>
-        <p className="hero-description">Behind the code, the careers, and the breakthroughs are people figuring it out. Let’s hear their stories.</p>
-        <div className="hero-actions"><Link className="button button-blue" href="/episodes/3/"><span className="play-icon" aria-hidden="true"></span> Watch the latest</Link><a className="text-link" href="#episodes">Explore the conversations</a></div>
+        <h1 id="hero-title" className="hero-mission-title">Knowledge from<br />the top 0.1%.<br /><em>Open to everyone.</em></h1>
+        <p className="hero-description">The lessons, decisions, and hard-won insights of exceptional people in tech, shared through honest conversations. So you can learn from their experience and build your own path.</p>
+        <div className="hero-actions">{latestEpisode && <Link className="button button-blue" href={episodePath(latestEpisode.number)}><span className="play-icon" aria-hidden="true"></span> Watch the latest</Link>}<a className="text-link" href="#episodes">Explore the conversations</a></div>
         <div className="hero-creators" aria-label="The people behind MaheshLabs">
           {creators.map((creator) => (
             <a className="hero-creator" href="#team" key={creator.name}>
@@ -24,7 +26,7 @@ export function Hero() {
           ))}
         </div>
       </div>
-      <FeaturedEpisodes episodes={episodes.filter((episode) => episode.videoId).sort((a, b) => b.number - a.number).map(({ number, guest, title, image, duration, topics, role }) => ({ number, guest, title, image, duration, topics, role }))} />
+      <FeaturedEpisodes episodes={releasedEpisodes.map(({ number, videoId, guest, title, image, duration, topics, role }) => ({ number, videoId, guest, title, image, duration, topics, role }))} />
     </section>
   );
 }

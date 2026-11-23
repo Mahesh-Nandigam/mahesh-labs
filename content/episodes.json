@@ -15,34 +15,308 @@
     "status": "Watch now",
     "externalPlayback": true,
     "chapters": [
-      { "time": "00:00", "seconds": 0, "title": "Episode highlights" },
-      { "time": "00:30", "seconds": 30, "title": "Welcome to MaheshLabs: meet Karthik" },
-      { "time": "02:11", "seconds": 131, "title": "Karthik’s passion for building" },
-      { "time": "03:07", "seconds": 187, "title": "Is DSA overhyped?" },
-      { "time": "06:45", "seconds": 405, "title": "50 LeetCode problems: development versus DSA" },
-      { "time": "08:41", "seconds": 521, "title": "Campus placement filters and CGPA" },
-      { "time": "10:43", "seconds": 643, "title": "Building Calmet and PromptBI" },
-      { "time": "18:42", "seconds": 1122, "title": "Recovering after losing projects" },
-      { "time": "20:03", "seconds": 1203, "title": "Escaping tutorial hell" },
-      { "time": "24:04", "seconds": 1444, "title": "Learning by building with AI" },
-      { "time": "28:22", "seconds": 1702, "title": "AI and the future of junior developers" },
-      { "time": "33:15", "seconds": 1995, "title": "Mistakes across four years of engineering" },
-      { "time": "38:01", "seconds": 2281, "title": "Three offers despite a low GPA" },
-      { "time": "39:26", "seconds": 2366, "title": "Inconsistency and coding burnout" },
-      { "time": "45:23", "seconds": 2723, "title": "Starting with DSA or development" },
-      { "time": "47:24", "seconds": 2844, "title": "A roadmap for each year of engineering" },
-      { "time": "50:42", "seconds": 3042, "title": "Life after college: a job or a company" },
-      { "time": "55:16", "seconds": 3316, "title": "Coding and consistency" },
-      { "time": "56:12", "seconds": 3372, "title": "Final thoughts" }
+      {
+        "time": "00:00",
+        "seconds": 0,
+        "title": "Episode highlights"
+      },
+      {
+        "time": "00:30",
+        "seconds": 30,
+        "title": "Welcome to MaheshLabs: meet Karthik"
+      },
+      {
+        "time": "02:11",
+        "seconds": 131,
+        "title": "Karthik’s passion for building"
+      },
+      {
+        "time": "03:07",
+        "seconds": 187,
+        "title": "Is DSA overhyped?"
+      },
+      {
+        "time": "06:45",
+        "seconds": 405,
+        "title": "50 LeetCode problems: development versus DSA"
+      },
+      {
+        "time": "08:41",
+        "seconds": 521,
+        "title": "Campus placement filters and CGPA"
+      },
+      {
+        "time": "10:43",
+        "seconds": 643,
+        "title": "Building Calmet and PromptBI"
+      },
+      {
+        "time": "18:42",
+        "seconds": 1122,
+        "title": "Recovering after losing projects"
+      },
+      {
+        "time": "20:03",
+        "seconds": 1203,
+        "title": "Escaping tutorial hell"
+      },
+      {
+        "time": "24:04",
+        "seconds": 1444,
+        "title": "Learning by building with AI"
+      },
+      {
+        "time": "28:22",
+        "seconds": 1702,
+        "title": "AI and the future of junior developers"
+      },
+      {
+        "time": "33:15",
+        "seconds": 1995,
+        "title": "Mistakes across four years of engineering"
+      },
+      {
+        "time": "38:01",
+        "seconds": 2281,
+        "title": "Three offers despite a low GPA"
+      },
+      {
+        "time": "39:26",
+        "seconds": 2366,
+        "title": "Inconsistency and coding burnout"
+      },
+      {
+        "time": "45:23",
+        "seconds": 2723,
+        "title": "Starting with DSA or development"
+      },
+      {
+        "time": "47:24",
+        "seconds": 2844,
+        "title": "A roadmap for each year of engineering"
+      },
+      {
+        "time": "50:42",
+        "seconds": 3042,
+        "title": "Life after college: a job or a company"
+      },
+      {
+        "time": "55:16",
+        "seconds": 3316,
+        "title": "Coding and consistency"
+      },
+      {
+        "time": "56:12",
+        "seconds": 3372,
+        "title": "Final thoughts"
+      }
     ],
     "links": [
-      { "name": "GitHub", "url": "https://github.com/CMKarth1kRaj" },
-      { "name": "LinkedIn", "url": "https://www.linkedin.com/in/cmkarthikraj/" },
-      { "name": "Instagram", "url": "https://www.instagram.com/cmkarthik_raj/" }
+      {
+        "name": "GitHub",
+        "url": "https://github.com/CMKarth1kRaj"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/cmkarthikraj/"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/cmkarthik_raj/"
+      }
     ]
   },
   {
     "number": 2,
+    "guest": "Yash Bavadiya",
+    "title": "We Broke Down Exactly How to Crack GSoC",
+    "description": "Yash shares his path from copying tutorials to contributing to Kdenlive and working in DevRel. A conversation about choosing a GSoC organization, writing a strong proposal, learning with AI, and building useful open-source projects.",
+    "topics": [
+      "GSoC",
+      "Open source",
+      "Careers"
+    ],
+    "role": "GSoC · Kdenlive · DevRel",
+    "image": "/assets/yash-bavadiya-gsoc.avif",
+    "videoId": "gyVbt46nM00",
+    "duration": "40 min",
+    "status": "Watch now",
+    "chapters": [
+      {
+        "time": "00:00",
+        "seconds": 0,
+        "title": "More PRs doesn’t tell the whole GSoC story"
+      },
+      {
+        "time": "00:56",
+        "seconds": 56,
+        "title": "Welcome to MaheshLabs"
+      },
+      {
+        "time": "01:13",
+        "seconds": 73,
+        "title": "Meet Yash Bavadiya"
+      },
+      {
+        "time": "02:50",
+        "seconds": 170,
+        "title": "Python, tutorials and the first steps"
+      },
+      {
+        "time": "04:13",
+        "seconds": 253,
+        "title": "Discovering open source and GSoC"
+      },
+      {
+        "time": "07:22",
+        "seconds": 442,
+        "title": "How Hacktoberfest got him started"
+      },
+      {
+        "time": "08:39",
+        "seconds": 519,
+        "title": "Finding the right GSoC organization"
+      },
+      {
+        "time": "10:02",
+        "seconds": 602,
+        "title": "Why Kdenlive? First contributions"
+      },
+      {
+        "time": "10:53",
+        "seconds": 653,
+        "title": "Talking to maintainers"
+      },
+      {
+        "time": "11:31",
+        "seconds": 691,
+        "title": "Using AI to understand bugs"
+      },
+      {
+        "time": "11:51",
+        "seconds": 711,
+        "title": "What goes into a GSoC proposal"
+      },
+      {
+        "time": "12:23",
+        "seconds": 743,
+        "title": "The proposal behind the PR-count story"
+      },
+      {
+        "time": "13:19",
+        "seconds": 799,
+        "title": "Documenting the GSoC journey"
+      },
+      {
+        "time": "14:10",
+        "seconds": 850,
+        "title": "Web development, ML or DSA: what comes first?"
+      },
+      {
+        "time": "16:33",
+        "seconds": 993,
+        "title": "HatchZip and the 180 GB extraction problem"
+      },
+      {
+        "time": "18:24",
+        "seconds": 1104,
+        "title": "Building with AI without skipping engineering"
+      },
+      {
+        "time": "20:54",
+        "seconds": 1254,
+        "title": "Breakscale and the Vercel OSS program"
+      },
+      {
+        "time": "23:58",
+        "seconds": 1438,
+        "title": "Watching a system design break"
+      },
+      {
+        "time": "24:32",
+        "seconds": 1472,
+        "title": "Learning system design in college"
+      },
+      {
+        "time": "25:38",
+        "seconds": 1538,
+        "title": "Gyotaku: searching screenshots with Rust"
+      },
+      {
+        "time": "27:02",
+        "seconds": 1622,
+        "title": "UI Lab and experimenting with models"
+      },
+      {
+        "time": "28:02",
+        "seconds": 1682,
+        "title": "What does a DevRel engineer do?"
+      },
+      {
+        "time": "28:48",
+        "seconds": 1728,
+        "title": "Staying consistent without motivation"
+      },
+      {
+        "time": "30:20",
+        "seconds": 1820,
+        "title": "Best decisions and biggest mistakes"
+      },
+      {
+        "time": "32:26",
+        "seconds": 1946,
+        "title": "Learning a new tech stack"
+      },
+      {
+        "time": "34:15",
+        "seconds": 2055,
+        "title": "A realistic take on DSA for interviews"
+      },
+      {
+        "time": "35:12",
+        "seconds": 2112,
+        "title": "Building in public and connecting on X"
+      },
+      {
+        "time": "37:13",
+        "seconds": 2233,
+        "title": "Learning through Discord communities"
+      },
+      {
+        "time": "38:07",
+        "seconds": 2287,
+        "title": "What Yash wants to build next"
+      }
+    ],
+    "links": [
+      {
+        "name": "Portfolio",
+        "url": "https://xevrion.dev/"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/xevrion/"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/yash-bavadiya/"
+      },
+      {
+        "name": "GSoC article",
+        "url": "https://xevrion.dev/blogs/gsoc-selection"
+      },
+      {
+        "name": "GSoC proposal (PDF)",
+        "url": "https://xevrion.dev/kdenlive-proposal.pdf"
+      },
+      {
+        "name": "X",
+        "url": "https://x.com/xevrion_the1"
+      }
+    ]
+  },
+  {
+    "number": 3,
     "guest": "Ria Khatoniar",
     "title": "GSoC twice. A path into AI & research.",
     "description": "Two GSoC selections, research internships, and a role at Nutanix. Ria talks about finding her own path, approaching research labs, and using AI without giving up your engineering judgment.",
@@ -52,7 +326,7 @@
       "Careers"
     ],
     "role": "ML4Sci · GSoC 2025 & 2026",
-    "image": "/assets/episode-02.jpg",
+    "image": "/assets/episode-03-ria-khatoniar.jpg",
     "videoId": "kMeQgxn6R4w",
     "duration": "73 min",
     "status": "Watch now",
@@ -158,7 +432,7 @@
     ]
   },
   {
-    "number": 3,
+    "number": 4,
     "guest": "J Prakash",
     "title": "From college to open source & remote work.",
     "description": "GSoC with openSUSE, LFX mentorship with Volcano, and the journey into remote work. J Prakash shares what goes into meaningful contributions, useful projects, and learning beyond tutorials.",
@@ -168,7 +442,7 @@
       "Careers"
     ],
     "role": "GSoC · LFX mentorship",
-    "image": "/assets/episode-03-open-source-to-job.jpg",
+    "image": "/assets/episode-04-j-prakash-open-source-to-job.png",
     "videoId": "4rsdSg4dU9g",
     "duration": "78 min",
     "status": "Watch now",
@@ -285,7 +559,7 @@
     ]
   },
   {
-    "number": 4,
+    "number": 5,
     "guest": "Anishka Yadav",
     "title": "First year. First contributions. GSoC.",
     "description": "Anishka shares how she started contributing in her first semester and got into GSoC in her second. A conversation about Liquid Galaxy, mentorship, DSA, AI, and starting before you feel ready.",
@@ -295,7 +569,7 @@
       "Careers"
     ],
     "role": "GSoC 2025 · Liquid Galaxy",
-    "image": "/assets/episode-04.jpg",
+    "image": "/assets/episode-05-anishka-yadav.jpg",
     "videoId": null,
     "duration": "49 min",
     "status": "Episode preview",
@@ -409,7 +683,7 @@
         "url": "https://www.instagram.com/__anishka10__/"
       }
     ],
-    "teaser": "/media/episode-04-teaser.mp4",
+    "teaser": "/media/episode-05-teaser.mp4",
     "teaserDuration": 52
   }
 ]

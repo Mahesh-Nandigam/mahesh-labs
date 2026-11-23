@@ -6,20 +6,25 @@ import Link from "next/link";
 import { episodePath, type Episode } from "@/lib/episodes";
 import { PlayIcon } from "./icons";
 
-type FeaturedEpisode = Pick<Episode, "number" | "guest" | "title" | "image" | "duration" | "topics" | "role">;
+type FeaturedEpisode = Pick<Episode, "number" | "videoId" | "guest" | "title" | "image" | "duration" | "topics" | "role">;
 
-const captions: Record<number, { topics: string; headline: [string, string]; description: string }> = {
-  1: {
+const captions: Record<string, { topics: string; headline: [string, string]; description: string }> = {
+  fuUFEIzRTbM: {
     topics: "DSA · CAREERS",
     headline: ["50 problems.", "Three job offers."],
     description: "Karthik on DSA, development & placements",
   },
-  2: {
+  gyVbt46nM00: {
+    topics: "GSoC · OPEN SOURCE",
+    headline: ["Beyond the PR count.", "Inside a GSoC selection."],
+    description: "Yash Bavadiya on Kdenlive, proposals & building projects",
+  },
+  kMeQgxn6R4w: {
     topics: "GSoC · AI & RESEARCH",
     headline: ["Two GSoCs.", "A path into research."],
     description: "Ria Khatoniar on GSoC, AI & research",
   },
-  3: {
+  "4rsdSg4dU9g": {
     topics: "OPEN SOURCE · CAREERS",
     headline: ["It starts with", "one contribution."],
     description: "J Prakash on GSoC, LFX & remote work",
@@ -93,7 +98,7 @@ export function FeaturedEpisodes({ episodes }: { episodes: FeaturedEpisode[] }) 
       >
         <div className="feature-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
           {episodes.map((episode, index) => {
-            const caption = captions[episode.number];
+            const caption = episode.videoId ? captions[episode.videoId] : undefined;
             const href = episodePath(episode.number);
             const watchLabel = `Watch episode ${episode.number} with ${episode.guest}`;
             return (
