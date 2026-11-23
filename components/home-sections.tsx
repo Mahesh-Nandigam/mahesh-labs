@@ -44,12 +44,10 @@ export function OurStory() {
 export function OurTeam() {
   return (
     <section id="team" className="team-section wrap section-space" aria-labelledby="team-title">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">THE PEOPLE BEHIND THE PODCAST</p>
-          <h2 id="team-title">Mahesh &amp; Mahesh.<br />One shared <em>curiosity.</em></h2>
-        </div>
-        <p className="section-intro">Friends making the kind of conversations<br />we’d want to listen to ourselves.</p>
+      <div className="section-heading team-heading">
+        <p className="eyebrow">MEET THE CREATORS</p>
+        <h2 id="team-title">Two friends.<br />One shared <em>curiosity.</em></h2>
+        <p className="team-intro">We’re Mahesh Nandigam and Mahesh Moholkar, two friends talking with people about how they found their way in tech.</p>
       </div>
       <div className="team-grid">
         {creators.map((creator) => (

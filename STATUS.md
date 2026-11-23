@@ -11,7 +11,7 @@ Updated November 23, 2026.
 - Both creators are featured in the hero. Profile content is centralized in lib/creators.ts.
 - Mahesh Moholkar’s Website and LinkedIn links point to https://maheshmoholkar.in/ and https://www.linkedin.com/in/mahesh1822/.
 - Co-creator wording replaces the restrictive behind-the-scenes/production label.
-- The section heading is “Mahesh & Mahesh. One shared curiosity.” Navigation says “The creators.”
+- The creator introduction reads “Two friends. One shared curiosity.” Its supporting paragraph sits beneath the heading in one left-aligned block. Navigation says “The creators.”
 - Episode cards use 28–30px semibold titles, 15px guest names, 16px supporting text, and subtle blue episode badges. Each title and role stay together with consistent spacing; card footers align across each row. Tablet layouts use two columns. Creator cards have equal heights, including the mobile stack.
 - Unreleased episode thumbnails use the selected editorial serif style: a gentle 1px blur, warm paper wash, and centered 36px italic Instrument Serif “Coming soon” text in the site’s ink color. Card playback links use “Teaser” or “Episode” with circular play icons and descriptive accessible labels.
 - The favicon is a single M, with SVG, ICO, and Apple touch icon variants.
@@ -21,9 +21,9 @@ Validation passed:
 
 - Speed menu: real rate changes, arrow-key selection, Escape, Tab, outside-click dismissal, and focus return passed browser checks. The menu fits at 320px and 390px without page overflow.
 - Custom player: real YouTube playback, pause, skips, speed, mute, chapter seeking and highlighting, fullscreen, and returning to YouTube controls were checked in the browser. At 320px and 390px, controls wrap without page overflow.
-- Featured carousel: previous/next, episode dots, keyboard navigation, disabled boundaries, and play links checked in the browser. No horizontal overflow at 320, 390, or 1280px; inactive slides are hidden from keyboard and assistive technology.
 - Thumbnail blur is limited to unreleased episodes; released thumbnails remain sharp. Playback labels, icons, destinations, and layouts at 1280, 390, and 320px were checked in the browser, with no horizontal overflow.
 - Episode card typography checked at 1280, 768, 390, and 320px: no page or card overflow, 10px title-to-role spacing, and aligned desktop footers. TypeScript, content checks, production build, and export checks passed after the update.
+- Featured carousel: previous/next, episode dots, keyboard navigation, disabled boundaries, and play links checked in the browser. No horizontal overflow at 320, 390, or 1280px; inactive slides are hidden from keyboard and assistive technology.
 - npm run check: TypeScript, all episode records, chapters, asset references, and icons.
 - npm run build: optimized production build, homepage, all 3 episode routes, and 404.
 - node scripts/check-export.mjs: generated HTML, chapter content, episode links, and route exports.
