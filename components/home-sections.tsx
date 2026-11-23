@@ -13,7 +13,7 @@ export function Hero() {
         <p className="eyebrow"><span className="little-mark" aria-hidden="true">✳</span> NEW EPISODES EVERY SATURDAY</p>
         <h1 id="hero-title" className="hero-mission-title">Knowledge from<br />the top 0.1%.<br /><em>Open to everyone.</em></h1>
         <p className="hero-description">The lessons, decisions, and hard-won insights of exceptional people in tech, shared through honest conversations. So you can learn from their experience and build your own path.</p>
-        <div className="hero-actions">{latestEpisode && <Link className="button button-blue" href={episodePath(latestEpisode.number)}><span className="play-icon" aria-hidden="true"></span> Watch the latest</Link>}<a className="text-link" href="#episodes">Explore the conversations</a></div>
+        <div className="hero-actions">{latestEpisode && <Link className="button button-blue" href={episodePath(latestEpisode.number)}><span className="play-icon" aria-hidden="true"></span> Watch latest podcast</Link>}<a className="text-link" href="#episodes">Explore the conversations</a></div>
         <div className="hero-creators" aria-label="The people behind MaheshLabs">
           {creators.map((creator) => (
             <a className="hero-creator" href="#team" key={creator.name}>
