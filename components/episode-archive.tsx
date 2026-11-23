@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { channelUrl, episodePath, sortedEpisodes, videoUrl } from "@/lib/episodes";
+import { episodePath, sortedEpisodes, videoUrl } from "@/lib/episodes";
 import { PlayIcon, SearchIcon } from "./icons";
 
 const filters = ["All", "Open source", "GSoC", "AI & research", "Careers"];
@@ -17,7 +17,7 @@ export function EpisodeArchive() {
   );
 
   return <section id="episodes" className="episodes-section wrap section-space" aria-labelledby="episodes-title">
-    <div className="section-heading"><div><p className="eyebrow">PULL UP A CHAIR</p><h2 id="episodes-title">Find your next <em>rabbit hole.</em></h2></div><p className="section-intro">Different journeys. Honest lessons.<br />Something to take into your own.</p></div>
+    <div className="section-heading"><div><p className="eyebrow">PULL UP A CHAIR</p><h2 id="episodes-title">Find your next <em>rabbit hole.</em></h2></div></div>
     <div className="episode-toolbar">
       <div className="filters" role="group" aria-label="Filter conversations by topic">
         {filters.map((item) => <button key={item} type="button" className={`filter${filter === item ? " active" : ""}`} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item === "All" ? "All conversations" : item}</button>)}
@@ -48,6 +48,5 @@ export function EpisodeArchive() {
       })}
     </div>
     {visible.length === 0 && <p className="empty-state" role="status">No conversations found. Try another name or topic. <button className="inline-button" type="button" onClick={() => { setFilter("All"); setQuery(""); }}>Show all conversations</button></p>}
-    <div className="archive-bottom"><p>Good conversations don’t have an expiry date.</p><a className="text-link" href={`${channelUrl}/videos`} target="_blank" rel="noopener noreferrer">More on YouTube</a></div>
   </section>;
 }

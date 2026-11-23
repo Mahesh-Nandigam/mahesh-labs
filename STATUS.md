@@ -4,6 +4,7 @@ Updated November 23, 2026.
 
 - Next.js 16 App Router, React 19, TypeScript.
 - Original editorial design and episode content preserved.
+- The hero features a carousel of released episodes, ordered latest to oldest from left to right. Titles use the full caption width and wrap naturally, with a single play button on the thumbnail. The left control moves to newer episodes and the right control to previous episodes, with episode dots, keyboard navigation, and touch swipes.
 - Mahesh Moholkar’s supplied portrait appears in the hero and creator profile; the missing PNG reference was replaced with the actual optimized JPEG. Both instances were verified loaded in the browser.
 - Both creators are featured in the hero. Profile content is centralized in lib/creators.ts.
 - Mahesh Moholkar’s Website and LinkedIn links point to https://maheshmoholkar.in/ and https://www.linkedin.com/in/mahesh1822/.
@@ -16,6 +17,7 @@ Updated November 23, 2026.
 
 Validation passed:
 
+- Featured carousel: previous/next, episode dots, keyboard navigation, disabled boundaries, and play links checked in the browser. No horizontal overflow at 320, 390, or 1280px; inactive slides are hidden from keyboard and assistive technology.
 - Thumbnail blur is limited to unreleased episodes; released thumbnails remain sharp. Playback labels, icons, destinations, and layouts at 1280, 390, and 320px were checked in the browser, with no horizontal overflow.
 - Episode card typography checked at 1280, 768, 390, and 320px: no page or card overflow, 10px title-to-role spacing, and aligned desktop footers. TypeScript, content checks, production build, and export checks passed after the update.
 - npm run check: TypeScript, all episode records, chapters, asset references, and icons.

@@ -51,6 +51,25 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
 .hero-creator:hover strong { color: var(--blue); }
 .moholkar-portrait { object-position: 50% 24%; }
 .hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.feature-viewport { overflow: hidden; touch-action: pan-y; }
+.feature-track { display: flex; transition: transform .45s cubic-bezier(.22, .68, .25, 1); }
+.feature-slide { flex: 0 0 100%; min-width: 0; display: flex; flex-direction: column; }
+.feature-slide .feature-art { flex-shrink: 0; }
+.feature-slide .feature-caption { flex: 1; display: block; }
+.feature-slide .feature-caption > div { min-width: 0; }
+.feature-footnote { flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; }
+.feature-signoff { display: inline-flex; align-items: center; gap: .6875rem; }
+.feature-signoff .waveform { flex-shrink: 0; }
+.feature-navigation { display: flex; align-items: center; flex-shrink: 0; gap: .25rem; margin-left: auto; }
+.feature-step { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: .625rem; border: 1px solid #b8bdae; border-radius: 50%; background: transparent; transition: background .2s, color .2s; }
+.feature-step svg { width: 1.125rem; height: 1.125rem; }
+.feature-step:hover:not(:disabled) { background: var(--paper); color: var(--blue); }
+.feature-step:disabled { opacity: .3; }
+.feature-pages { display: flex; align-items: center; }
+.feature-page { display: grid; place-items: center; width: 1.5rem; height: 2.75rem; padding: 0; border-radius: .25rem; background: transparent; }
+.feature-page > span { display: block; width: .375rem; height: .375rem; border-radius: 50%; background: #a8aea1; transition: background .2s, transform .2s; }
+.feature-page[aria-pressed="true"] > span { background: var(--blue); transform: scale(1.4); }
+.feature-page:hover > span { background: var(--blue); }
 .hero-copy, .hero-feature, .section-heading > *, .about-layout > *,
 .connect-layout > *, .dialog-columns > *, .chapter-copy { min-width: 0; }
 .hero h1 { white-space: normal; }

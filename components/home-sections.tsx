@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { creators } from "@/lib/creators";
+import { episodes } from "@/lib/episodes";
+import { FeaturedEpisodes } from "./featured-episodes";
 
 export function Hero() {
   return (
@@ -22,12 +24,7 @@ export function Hero() {
           ))}
         </div>
       </div>
-      <div className="hero-feature">
-        <div className="feature-topline"><span><span className="live-dot"></span> THE LATEST CONVERSATION</span><span>EP. 03</span></div>
-        <Link className="feature-art" aria-label="Watch episode 3 with J Prakash" href="/episodes/3/"><Image src="/assets/episode-03-open-source-to-job.jpg" width={1280} height={720} alt="Mahesh Nandigam and J Prakash on GSoC and LFX" /><span className="feature-play"><span className="play-icon" aria-hidden="true"></span></span><span className="duration">1h 18m</span></Link>
-        <div className="feature-caption"><div><p className="eyebrow">OPEN SOURCE · CAREERS</p><h2>It starts with<br />one contribution.</h2><p>J Prakash on GSoC, LFX &amp; remote work</p></div><Link className="round-button" aria-label="Open J Prakash’s episode" href="/episodes/3/"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" strokeWidth="1.7"></path></svg></Link></div>
-        <div className="feature-footnote"><span className="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>Less noise. More perspective.</span></div>
-      </div>
+      <FeaturedEpisodes episodes={episodes.filter((episode) => episode.videoId).sort((a, b) => b.number - a.number).map(({ number, guest, title, image, duration, topics, role }) => ({ number, guest, title, image, duration, topics, role }))} />
     </section>
   );
 }
