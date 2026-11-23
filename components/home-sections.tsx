@@ -11,7 +11,7 @@ export function Hero() {
 <section className="hero wrap" aria-labelledby="hero-title">
       <div className="hero-copy">
         <p className="eyebrow"><span className="little-mark" aria-hidden="true">✳</span> NEW EPISODES EVERY SATURDAY</p>
-        <h1 id="hero-title" className="hero-mission-title">We democratize<br />the knowledge of<br /><em>the top 0.1%.</em></h1>
+        <h1 id="hero-title" className="hero-mission-title">We democratize<br />the knowledge of<br /><em>top 0.1%.</em></h1>
         <p className="hero-description">The lessons, decisions, and hard-won insights of exceptional people in tech, shared through honest conversations. So you can learn from their experience and build your own path.</p>
         <div className="hero-actions">{latestEpisode && <Link className="button button-blue" href={episodePath(latestEpisode.number)}><span className="play-icon" aria-hidden="true"></span> Watch latest podcast</Link>}<a className="text-link" href="#episodes">Explore the conversations</a></div>
         <div className="hero-creators" aria-label="The people behind MaheshLabs">
