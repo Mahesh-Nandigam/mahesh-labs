@@ -1,43 +1,45 @@
-# Website status
+# MaheshLabs status
 
-Updated November 23, 2026.
+Updated November 24, 2026.
 
-- Next.js 16 App Router, React 19, TypeScript.
-- Header uses a Subscribe button for the main YouTube channel and a separate Socials navigation item. The /socials/ page lists the main, Shorts, and Clips YouTube channels, MaheshLabs on X and LinkedIn, both creators' X and LinkedIn profiles, and both supplied Instagram accounts (MaheshLabs first, Mahesh Nandigam separately).
-- Original editorial design and episode content preserved.
-- Restored the missing Yash Bavadiya conversation from YouTube (`gyVbt46nM00`), including its published thumbnail, 29 chapters, description, and guest links. The website order is Karthik (1), Yash (2), Ria (3), J Prakash (4), and Anishka (5, coming soon).
-- Carousel captions and recommended chapters use video IDs so changing episode numbers keeps their content paired correctly. The latest-episode button follows the released episode list.
-- Website asset filenames match the corrected episode order. The original thumbnail artwork is retained, with episode badges removed; all pixels outside the badge areas are unchanged. The teaser was renamed without changing its video bytes. The separate YouTube production folders still need migration from their earlier working numbers.
-- Episode pages have a paper-and-blue player control bar with play/pause, 10-second skips, chapter markers, time, volume, playback speed, keyboard shortcuts, and fullscreen. YouTube loads after play or chapter selection. A settings button restores YouTube controls for captions and quality; playback position, speed, and mute are retained. YouTube’s own overlays remain provider-controlled.
-- Playback speed uses a custom two-column menu with the current choice marked, matching paper colors, and keyboard navigation. The volume slider uses the same slim track and small thumb as the timeline.
-- The hero features a carousel of released episodes, ordered latest to oldest from left to right. Titles use the full caption width and wrap naturally, with a single play button on the thumbnail. The left control moves to newer episodes and the right control to previous episodes, with episode dots, keyboard navigation, and touch swipes.
-- Mahesh Moholkar’s supplied portrait appears in the hero and creator profile; the missing PNG reference was replaced with the actual optimized JPEG. Both instances were verified loaded in the browser.
-- Mahesh Nandigam is labeled Host in the hero and profile card. Mahesh Moholkar’s profile shows “Behind the scenes” above his name and Co-creator below. Profile content is centralized in lib/creators.ts.
-- Mahesh Moholkar’s Website and LinkedIn links point to https://maheshmoholkar.in/ and https://www.linkedin.com/in/mahesh1822/.
-- The creator introduction reads “Two friends. One shared curiosity.” Its supporting paragraph sits beneath the heading in one left-aligned block. Navigation says “The creators.”
-- Episode cards use 28–30px semibold titles, 15px guest names, 16px supporting text, and subtle blue episode badges. Each title and role stay together with consistent spacing; card footers align across each row. Tablet layouts use two columns. Creator cards have equal heights, including the mobile stack.
-- Unreleased episode thumbnails keep the original artwork sharp, with a subtle bottom gradient, blue “Coming soon” badge, and a teaser play cue showing its actual duration. Released cards retain their play buttons and full episode durations. Card links use “Teaser” or “Episode” with descriptive accessible labels. Copy-link controls appear only for released episodes; teaser pages keep the YouTube subscription action.
-- The favicon is a single M, with SVG, ICO, and Apple touch icon variants.
-- “New episodes every Saturday” appears in the hero and subscription section.
+Implemented:
 
-Validation passed:
+- Next.js server runtime with Neon Postgres; migrations and non-destructive episode seeding.
+- Password-only Studio at `/admin/`, hashed password, server-side sessions, origin checks, and login rate limits. No subscriber accounts.
+- Compact newsletter signup with signup consent recorded, email normalization, duplicate prevention, subscriber search/pagination, CSV export, and unsubscribe suppression. Public pages include a corner button and the same signup popup on desktop exit intent (once per session after 10 seconds). Successful signup suppresses future prompts in that browser; this is not early-access authentication.
+- Provider-independent newsletter drafts, live writing preview, and text export. No email service or sending integration.
+- Episode drafts/publishing, titles, descriptions, and image/teaser URL editing. Chapters import directly from the YouTube `.txt` chapter file, with timestamp validation and a preview. Guest links use separate label/URL fields with add/remove controls.
+- Native vertical overscroll bounce is disabled across the public site and Studio.
+- Homepage introduction, story, creator introduction, and newsletter copy are hardcoded in `content/homepage.json`. Studio has no Site copy menu, editor, or write API.
+- Homepage shows up to 4 podcasts on mobile and 6 on desktop. More opens `/episodes/`, with 12 conversations per page and search/topic filters.
+- Blog at `/blog/`: covers, authors, tags, reading time, table of contents, pagination, metadata, and safe Markdown. Studio provides an article editor with formatting controls, preview, draft/publish states, and URL slugs.
 
-- Coming-soon thumbnail update: TypeScript, episode content checks, production build, and diff whitespace checks passed. Exported HTML shows the new status and 52-second teaser cue only on Anishka’s unreleased card. Browser review was unavailable because the local server could not bind to port 4173 (`EPERM`).
-- Socials: production export checks verify all 11 channel and profile links, the Socials navigation item, and the main YouTube Subscribe button.
-- Speed menu: real rate changes, arrow-key selection, Escape, Tab, outside-click dismissal, and focus return passed browser checks. The menu fits at 320px and 390px without page overflow.
-- Custom player: real YouTube playback, pause, skips, speed, mute, chapter seeking and highlighting, fullscreen, and returning to YouTube controls were checked in the browser. At 320px and 390px, controls wrap without page overflow.
-- Episode card typography checked at 1280, 768, 390, and 320px: no page or card overflow, 10px title-to-role spacing, and aligned desktop footers. TypeScript, content checks, production build, and export checks passed after the update.
-- Featured carousel: previous/next, episode dots, keyboard navigation, disabled boundaries, and play links checked in the browser. No horizontal overflow at 320, 390, or 1280px; inactive slides are hidden from keyboard and assistive technology.
-- npm run check: TypeScript, all episode records, chapters, asset references, and icons.
-- npm run build: optimized production build, homepage, all 5 episode routes, and 404.
-- node scripts/check-export.mjs: generated HTML, chapter content, episode links, and route exports.
-- Exported HTML was checked for the portrait in both locations, both supplied contact links, updated heading and roles, M icon metadata, and Saturday copy in both sections.
-- Browser layout checks at 320, 390, 768, 1024, 1280, and 1920 CSS pixels: no horizontal overflow; episode card heights and footer positions match.
-- Creator cards were checked on desktop and mobile, including equal 288px heights at 390px width after the final correction.
-- All three episode pages were checked at 320px width: no overflow, correct titles and chapters, no broken images.
-- Mobile filter, timed chapter search, and navigation open/close behavior passed.
-- Mahesh Moholkar’s portrait was visibly verified in both locations at its actual 480×640 dimensions. No broken image elements were found.
+Publishing workflow to discuss:
 
-The latest local preview could not start because the environment denied binding to localhost:4173. Browser checks above describe earlier work; the latest Socials page and header have build and export verification, with visual and mobile interaction checks still pending. No hosted deployment is claimed. The existing private Site identity is retained. The source YouTube directory and original portrait remain unchanged.
+- Teasers in Neon Object Storage, removed after the full episode goes live.
+- Full episodes available to newsletter subscribers one day early.
+- Unique expiring email links, browser access cookies, forwarding/device rules, and the selected email provider.
+- Email confirmation and provider-managed delivery/unsubscribe events.
 
-Run npm run dev here. For a fresh checkout or ZIP, run npm install first. The ZIP includes the source and generated out/ folder.
+No early-access schedule, email sending, or automatic teaser deletion is active yet. Image and video fields currently accept existing asset paths or hosted URLs; uploads will follow the storage design.
+
+Validation:
+
+- Newsletter layout/popup: build and TypeScript/content checks passed; browser checks confirmed a single-line desktop heading, a compact 121px banner, same-row email/button at desktop and 390px, popup sizing, close/Escape behavior, focus/scroll restoration, and signup suppression after reload. Popup signup persisted in Neon; the temporary test subscriber was removed. Automatic desktop exit intent is implemented; the browser-chrome pointer gesture could not be automated because native app control was unavailable.
+- Chapter importing passed against the original EP2, EP3, and EP4 YouTube chapter exports (16, 19, and 18 chapters), plus malformed timestamps, duplicate/order checks, BOM/CRLF, and limits. Browser checks confirmed file upload/preview, error preservation, guest-link add/remove fields, no horizontal overflow, and the upward scroll boundary. Build and TypeScript/content checks passed after these changes.
+- After removing Site copy, the build and TypeScript/content checks passed; a production-server smoke check confirmed hardcoded homepage copy and HTTP 404 for the retired editor and save API.
+- Production build and TypeScript/content checks passed.
+- The production runtime returned HTTP 200 for the homepage, archive, blog, and sign-in page; Neon-backed admin login, dashboard, and logout passed.
+- All 12 original end-to-end functional checks passed on the isolated development branch: database connectivity, access controls, password login/session/logout, cross-site protection, signup/consent/duplicates/export/unsubscribe, episode draft/publish/concurrent edits, homepage/episode pagination, newsletter draft persistence, safe blog publishing/Markdown/table of contents, and login rate limiting. The former homepage editing check now verifies hardcoded copy and removed editor routes.
+- Browser checks confirmed 4 podcast cards at 390px and 6 at 1280px, without horizontal overflow; Studio password login and the blog editor preview also worked.
+- The test runner’s final cleanup encountered a proxy connection error. Cleanup succeeded from a fresh process; the runner now batches cleanup in a single transaction.
+- Neon’s production branch received both additive migrations and the existing five episodes.
+- The development branch remains available; automatic branch deletion was blocked because Neon CLI could not refresh credentials in its read-only global config directory.
+
+Integration tests require an isolated `dev-*` Neon branch, a running app using that branch, and `STUDIO_TEST_PASSWORD`; they create and remove temporary test records.
+
+Optional cleanup from `website/` in a normal terminal (the agent could not refresh the global Neon CLI credentials):
+
+```sh
+npx --yes neon@latest branches delete dev-newsletter-studio
+```
