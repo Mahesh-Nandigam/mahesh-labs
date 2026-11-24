@@ -18,19 +18,76 @@ export function Header() {
     return () => document.removeEventListener("keydown", closeOnEscape);
   }, []);
 
-  return <header className="site-header">
-    <div className="nav-shell wrap">
-      <Link className="brand" href="/" aria-label="MaheshLabs home" onClick={() => setMenuOpen(false)}>
-        <Image src="/assets/logo.svg" width={194} height={35} alt="MaheshLabs" priority />
-      </Link>
-      <nav id="navigation" className={menuOpen ? "is-open" : ""} aria-label="Main navigation">
-        <Link href="/#episodes" onClick={() => setMenuOpen(false)}>The conversations</Link>
-        <Link href="/#about" onClick={() => setMenuOpen(false)}>Our story</Link>
-        <Link href="/#team" onClick={() => setMenuOpen(false)}>The creators</Link>
-        <Link href="/socials/" aria-current={pathname === "/socials" || pathname === "/socials/" ? "page" : undefined} onClick={() => setMenuOpen(false)}>Socials</Link>
-      </nav>
-      <a className="button button-blue header-subscribe" href={subscribeUrl} target="_blank" rel="noopener noreferrer" aria-label="Subscribe to our main YouTube channel">Subscribe</a>
-      <button className="menu-toggle" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-controls="navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}><span /><span /></button>
-    </div>
-  </header>;
+  return (
+    <header className="site-header">
+      <div className="nav-shell wrap">
+        <Link
+          className="brand"
+          href="/"
+          aria-label="MaheshLabs home"
+          onClick={() => setMenuOpen(false)}
+        >
+          <Image
+            src="/assets/logo.svg"
+            width={194}
+            height={35}
+            alt="MaheshLabs"
+            priority
+          />
+        </Link>
+        <nav
+          id="navigation"
+          className={menuOpen ? "is-open" : ""}
+          aria-label="Main navigation"
+        >
+          <Link href="/#episodes" onClick={() => setMenuOpen(false)}>
+            The conversations
+          </Link>
+          <Link href="/#about" onClick={() => setMenuOpen(false)}>
+            Our story
+          </Link>
+          <Link href="/#newsletter" onClick={() => setMenuOpen(false)}>
+            Newsletter
+          </Link>
+          <Link href="/#team" onClick={() => setMenuOpen(false)}>
+            The creators
+          </Link>
+          <Link href="/blog/" onClick={() => setMenuOpen(false)}>
+            Blog
+          </Link>
+          <Link
+            href="/socials/"
+            aria-current={
+              pathname === "/socials" || pathname === "/socials/"
+                ? "page"
+                : undefined
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            Socials
+          </Link>
+        </nav>
+        <a
+          className="button button-blue header-subscribe"
+          href={subscribeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Subscribe to our main YouTube channel"
+        >
+          Subscribe
+        </a>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-controls="navigation"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+      </div>
+    </header>
+  );
 }

@@ -6,15 +6,28 @@
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 4173",
     "build": "next build --webpack",
-    "start": "node scripts/serve.mjs",
-    "typecheck": "tsc --noEmit",
+    "start": "next start --hostname 127.0.0.1 --port 4173",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:seed": "node scripts/seed.mjs",
+    "admin:password": "node scripts/admin-password.mjs",
+    "test:integration": "node scripts/test-integration.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
     "check": "npm run typecheck && node scripts/check.mjs"
   },
-  "engines": {"node": ">=20.9.0"},
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "dependencies": {
-    "next": "16.3.8",
+    "@neon/config": "^1.14.6",
+    "@neon/env": "^2.1.9",
+    "@neondatabase/serverless": "^1.2.1",
+    "next": "16.4.6",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-markdown": "^10.1.0",
+    "server-only": "^0.0.1",
+    "undici": "^6.29.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "20.19.43",

@@ -1,5 +1,3 @@
-import records from "@/content/episodes.json";
-
 export interface Chapter {
   time: string;
   seconds: number;
@@ -24,7 +22,6 @@ export interface Episode {
   links: { name: string; url: string }[];
 }
 
-export const episodes: Episode[] = records;
 export const channelUrl = "https://www.youtube.com/@MAHESHNANDIGAM-t9z";
 export const subscribeUrl = `${channelUrl}?sub_confirmation=1`;
 export const episodePath = (number: number) => `/episodes/${number}/`;
@@ -32,21 +29,28 @@ export const videoUrl = (episode: Episode, seconds = 0) => {
   if (!episode.videoId) return null;
   return `https://www.youtube.com/watch?v=${episode.videoId}${seconds ? `&t=${seconds}s` : ""}`;
 };
-export const getEpisode = (number: number) => episodes.find((episode) => episode.number === number);
-export const sortedEpisodes = [...episodes].sort((a, b) =>
-  Number(Boolean(a.videoId)) - Number(Boolean(b.videoId)) || b.number - a.number,
-);
+export const sortEpisodes = (episodes: Episode[]) =>
+  [...episodes].sort(
+    (a, b) =>
+      Number(Boolean(a.videoId)) - Number(Boolean(b.videoId)) ||
+      b.number - a.number,
+  );
 
 export interface ChapterMatch {
   episode: Episode;
   chapter: Chapter;
 }
 
-export function findChapters(query: string): ChapterMatch[] {
+export function findChapters(
+  query: string,
+  episodes: Episode[],
+): ChapterMatch[] {
   const term = query.trim().toLowerCase();
-  const chapters = episodes.filter((episode) => episode.videoId).flatMap((episode) =>
-    episode.chapters.map((chapter) => ({ episode, chapter })),
-  );
+  const chapters = episodes
+    .filter((episode) => episode.videoId)
+    .flatMap((episode) =>
+      episode.chapters.map((chapter) => ({ episode, chapter })),
+    );
   if (!term) {
     const featured: [string, number][] = [
       ["4rsdSg4dU9g", 1452],
@@ -54,7 +58,10 @@ export function findChapters(query: string): ChapterMatch[] {
       ["4rsdSg4dU9g", 4042],
     ];
     return featured.flatMap(([videoId, seconds]) =>
-      chapters.filter((item) => item.episode.videoId === videoId && item.chapter.seconds === seconds),
+      chapters.filter(
+        (item) =>
+          item.episode.videoId === videoId && item.chapter.seconds === seconds,
+      ),
     );
   }
   return chapters.filter(({ episode, chapter }) => {
