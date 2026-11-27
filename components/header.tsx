@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,15 +8,22 @@ import { subscribeUrl } from "@/lib/episodes";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const navigation = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
+    if (!menuOpen) return;
+    navigation.current?.querySelector("a")?.focus();
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+      }
     };
     document.addEventListener("keydown", closeOnEscape);
     return () => document.removeEventListener("keydown", closeOnEscape);
-  }, []);
+  }, [menuOpen]);
 
   return (
     <header className="site-header">
@@ -29,13 +36,14 @@ export function Header() {
         >
           <Image
             src="/assets/logo.svg"
-            width={194}
-            height={35}
+            width={230}
+            height={52}
             alt="MaheshLabs"
             priority
           />
         </Link>
         <nav
+          ref={navigation}
           id="navigation"
           className={menuOpen ? "is-open" : ""}
           aria-label="Main navigation"
@@ -52,7 +60,11 @@ export function Header() {
           <Link href="/#team" onClick={() => setMenuOpen(false)}>
             The creators
           </Link>
-          <Link href="/blog/" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/blog/"
+            aria-current={pathname === "/blog" || pathname === "/blog/" ? "page" : pathname.startsWith("/blog/") ? "location" : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
             Blog
           </Link>
           <Link
@@ -77,6 +89,7 @@ export function Header() {
           Subscribe
         </a>
         <button
+          ref={menuButton}
           className="menu-toggle"
           type="button"
           aria-label={menuOpen ? "Close menu" : "Open menu"}

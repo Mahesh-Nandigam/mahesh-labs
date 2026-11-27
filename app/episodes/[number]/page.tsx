@@ -54,7 +54,7 @@ export default async function EpisodePage({ params }: Props) {
             </p>
           )}
           <EpisodeActions episode={episode} />
-          <div className="episode-guest">
+          <div className="episode-guest-profile">
             <aside>
               <h2>Meet {episode.guest}</h2>
               <p className="preview-note">{episode.role}</p>

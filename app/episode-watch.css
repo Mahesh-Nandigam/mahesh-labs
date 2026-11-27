@@ -56,7 +56,7 @@
 .player-speed > svg { width: .875rem; height: .875rem; color: var(--muted); transition: transform .15s; }
 .player-speed[aria-expanded="true"] > svg { transform: rotate(180deg); }
 .player-speed:hover:not(:disabled), .player-speed[aria-expanded="true"] { color: var(--blue); background: #e1e8f8; }
-.player-speed:focus-visible, .player-speed-options button:focus-visible, .player-volume input:focus-visible { outline: 2px solid #6392f2; outline-offset: 2px; }
+.player-speed:focus-visible, .player-speed-options button:focus-visible, .player-volume input:focus-visible { outline: 2px solid #6392f2; outline-offset: -2px; }
 .player-speed:disabled { opacity: .45; cursor: default; }
 .player-speed-menu { position: absolute; z-index: 5; top: calc(100% + .625rem); right: 0; width: 14rem; max-height: 50svh; overflow-y: auto; overscroll-behavior: contain; padding: .625rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--paper); box-shadow: 0 8px 28px #17211b1a; }
 .player-speed-heading { padding: .25rem .375rem .625rem; color: var(--muted); font-size: .6875rem; font-weight: 500; line-height: 1.5; }
@@ -92,7 +92,7 @@
   .player-poster img, .player-poster-play, .player-control { transition: none; }
   .player-spinner { animation: none; }
 }
-.episode-chapters { position: relative; min-width: 0; border-left: 1px solid var(--line); background: #ebe9e240; }
+.episode-chapters { position: relative; min-width: 0; border-left: 1px solid var(--line); background: var(--card-bg); }
 .episode-chapters-inner { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
 .episode-chapters-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.375rem 1rem; border-bottom: 1px solid var(--line); flex-shrink: 0; }
 .episode-chapters-header h2 { font-size: 1.125rem; font-weight: 550; letter-spacing: -.025em; }
@@ -111,9 +111,9 @@
 .episode-chapter-copy time { display: block; width: fit-content; margin-top: .375rem; color: var(--muted); font-size: .75rem; line-height: 1.4; font-variant-numeric: tabular-nums; }
 .episode-chapter[aria-current="true"] time { color: var(--blue); }
 .chapter-unreleased:hover { background: transparent; }
-.episode-guest { padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--line); }
-.episode-guest h2 { font-size: 1.3125rem; letter-spacing: -.025em; }
-.episode-guest .guest-links { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; font-size: .875rem; }
+.episode-guest-profile { padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--line); }
+.episode-guest-profile h2 { font-size: 1.3125rem; letter-spacing: -.025em; }
+.episode-guest-profile .guest-links { flex-direction: row; flex-wrap: wrap; gap: 1.25rem; font-size: .875rem; }
 @media (max-width: 900px) {
   .episode-watch.has-chapters { grid-template-columns: minmax(0, 1fr); }
   .episode-chapters { border-left: 0; border-top: 1px solid var(--line); }

@@ -6,9 +6,9 @@ export function Footer() {
       <div className="wrap footer-main">
         <a href="/" className="brand" aria-label="MaheshLabs home">
           <Image
-            src="/assets/logo-light.svg"
-            width={194}
-            height={35}
+            src="/assets/logo.svg"
+            width={230}
+            height={52}
             alt="MaheshLabs"
           />
         </a>
@@ -27,13 +27,6 @@ export function Footer() {
           <a href="/blog/">Blog</a>
           <a href="/#connect">Get in touch</a>
         </div>
-      </div>
-      <div className="wrap footer-bottom">
-        <span>
-          © <span>{new Date().getFullYear()}</span> MaheshLabs
-        </span>
-        <span>Made by two friends. For curious minds.</span>
-        <a href="/">Back to top</a>
       </div>
     </footer>
   );

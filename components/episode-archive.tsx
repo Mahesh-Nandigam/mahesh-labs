@@ -29,6 +29,7 @@ export function EpisodeArchive({
   total?: number;
 }) {
   const [query, setQuery] = useState(initialQuery);
+  const Heading = preview ? "h2" : "h1";
   const visible = preview ? sortEpisodes(episodes).slice(0, 6) : episodes;
   const pageUrl = (n: number) =>
     `/episodes/?${new URLSearchParams({ page: String(n), q: initialQuery, topic: initialTopic })}`;
@@ -42,9 +43,9 @@ export function EpisodeArchive({
       <div className="section-heading">
         <div>
           <p className="eyebrow">PULL UP A CHAIR</p>
-          <h2 id="episodes-title">
+          <Heading id="episodes-title">
             Find your next <em>rabbit hole.</em>
-          </h2>
+          </Heading>
         </div>
       </div>
       {!preview && (
@@ -66,9 +67,8 @@ export function EpisodeArchive({
             ))}
             <input type="hidden" name="topic" value={initialTopic} />
           </div>
-          <label className="episode-search">
+          <div className="episode-search">
             <SearchIcon />
-            <span className="sr-only">Search episodes</span>
             <input
               aria-label="Search episodes"
               name="q"
@@ -81,7 +81,7 @@ export function EpisodeArchive({
             <button className="archive-search-button" type="submit">
               Search
             </button>
-          </label>
+          </div>
         </form>
       )}
       <div
