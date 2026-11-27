@@ -90,7 +90,6 @@ export function EpisodeEditor({
               videoId: get("videoId") || null,
               duration: get("duration"),
               status: get("videoId") ? "Watch now" : "Coming soon",
-              externalPlayback: f.get("externalPlayback") === "on",
               chapters,
               links: links.map(({ name, url }) => ({
                 name: name.trim(),
@@ -184,14 +183,6 @@ export function EpisodeEditor({
                 </label>
               ))}
             </div>
-            <label className="studio-checkbox">
-              <input
-                name="externalPlayback"
-                type="checkbox"
-                defaultChecked={initial.externalPlayback}
-              />
-              <span>Open the full episode directly on YouTube</span>
-            </label>
             <p className="studio-help">
               Keep the video ID empty for a coming-soon episode. Teaser storage
               and early-access timing will be added separately.

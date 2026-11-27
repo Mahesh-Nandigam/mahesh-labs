@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   episodePath,
   sortEpisodes,
-  videoUrl,
   type Episode,
 } from "@/lib/episodes";
 import { PlayIcon, SearchIcon } from "./icons";
@@ -90,25 +89,18 @@ export function EpisodeArchive({
       >
         {visible.map((episode) => {
           const released = Boolean(episode.videoId);
-          const external = Boolean(episode.externalPlayback && episode.videoId);
-          const href = external
-            ? videoUrl(episode)!
-            : episodePath(episode.number);
-          const linkProps = external
-            ? { target: "_blank", rel: "noopener noreferrer" }
-            : {};
+          const href = episodePath(episode.number);
           const action = released
             ? "Episode"
             : episode.teaser
               ? "Teaser"
               : "Preview";
-          const actionLabel = `${released ? "Watch episode" : episode.teaser ? "Watch teaser for episode" : "Preview episode"} ${episode.number} with ${episode.guest}${external ? " on YouTube" : ""}`;
+          const actionLabel = `${released ? "Watch episode" : episode.teaser ? "Watch teaser for episode" : "Preview episode"} ${episode.number} with ${episode.guest}`;
           return (
             <article className="episode-card" key={episode.number}>
               <Link
                 className={`episode-art${released ? "" : " episode-art-unreleased"}`}
                 href={href}
-                {...linkProps}
                 aria-label={`${actionLabel}${released ? "" : ". Full episode coming soon"}`}
               >
                 <Image
@@ -151,7 +143,7 @@ export function EpisodeArchive({
                   <span className="episode-guest">{episode.guest}</span>
                 </div>
                 <h3>
-                  <Link className="episode-title" href={href} {...linkProps}>
+                  <Link className="episode-title" href={href}>
                     {episode.title}
                   </Link>
                 </h3>
@@ -164,7 +156,6 @@ export function EpisodeArchive({
                 <Link
                   className="card-open"
                   href={href}
-                  {...linkProps}
                   aria-label={actionLabel}
                 >
                   {(released || episode.teaser) && (
