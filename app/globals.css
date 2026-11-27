@@ -427,3 +427,83 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
   .episode-search input { font-size: 1rem; }
   .home-blog .section-heading .text-link { display: inline-block; margin-top: .75rem; }
 }
+
+/* A brief branded entrance, with the page available underneath throughout. */
+.site-intro {
+  --intro-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--paper);
+  pointer-events: none;
+  animation: intro-exit 400ms var(--intro-ease) 1600ms both;
+}
+.site-intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+.site-intro-content > img {
+  width: min(20rem, 75vw);
+  height: auto;
+  animation: intro-arrive 500ms var(--intro-ease) both;
+}
+.site-intro-words {
+  display: grid;
+  text-align: center;
+  font: italic 400 clamp(2.25rem, 6vw, 4rem)/1.15 var(--serif);
+  letter-spacing: -.035em;
+}
+.site-intro-words > span {
+  grid-area: 1 / 1;
+  animation: intro-question 600ms var(--intro-ease) 200ms both;
+}
+.site-intro-words > span:last-child {
+  color: var(--blue);
+  animation: intro-arrive 500ms var(--intro-ease) 800ms both;
+}
+.site-intro-line {
+  width: 9rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
+}
+.site-intro-line > span {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transform-origin: left;
+  animation: intro-line 1400ms cubic-bezier(.77, 0, .175, 1) both;
+}
+.site-intro,
+.site-intro * { animation-play-state: paused; }
+.site-intro.is-playing,
+.site-intro.is-playing * { animation-play-state: running; }
+@keyframes intro-arrive {
+  from { opacity: 0; transform: translateY(15%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes intro-question {
+  0% { opacity: 0; transform: translateY(25%); }
+  25%, 70% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-25%); }
+}
+@keyframes intro-line {
+  from { transform: scaleX(.02); }
+  to { transform: scaleX(1); }
+}
+@keyframes intro-exit {
+  to { opacity: 0; visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-intro { display: none; }
+}
+@media print {
+  .site-intro { display: none; }
+}
