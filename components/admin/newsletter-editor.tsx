@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { StudioLink as Link } from "@/components/admin/studio-link";
 import { useRouter } from "next/navigation";
@@ -153,7 +154,8 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
           </div>
           <article className="studio-email-paper">
             <div className="studio-email-wordmark">
-              MaheshLabs<span>FOR CURIOUS MINDS</span>
+              <Image src="/assets/logo.svg" width={230} height={52} alt="Mahesh Labs" />
+              <span>FOR CURIOUS MINDS</span>
             </div>
             <h2>{draft.subject || "Something worth opening."}</h2>
             {draft.body ? (

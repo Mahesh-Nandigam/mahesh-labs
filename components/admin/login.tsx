@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { StudioLink as Link } from "@/components/admin/studio-link";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,8 @@ export function AdminLogin({ configured }: { configured: boolean }) {
     <main id="main" className="studio-login">
       <div className="studio-login-card">
         <Link className="studio-login-brand" href="/">
-          MaheshLabs <span>STUDIO</span>
+          <Image src="/assets/logo.svg" width={230} height={52} alt="Mahesh Labs" />
+          <span>STUDIO</span>
         </Link>
         <p className="studio-kicker">A LITTLE BEHIND THE SCENES</p>
         <h1>Welcome back.</h1>

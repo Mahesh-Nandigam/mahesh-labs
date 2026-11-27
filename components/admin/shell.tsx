@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { StudioLink as Link } from "@/components/admin/studio-link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
@@ -72,9 +73,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
     <div className="studio-shell">
       <aside className="studio-sidebar">
         <Link className="studio-brand" href="/admin/">
-          <span className="studio-monogram">M</span>
           <span>
-            MaheshLabs<small>STUDIO</small>
+            <Image src="/assets/logo-light.svg" width={190} height={43} alt="Mahesh Labs" />
+            <small>STUDIO</small>
           </span>
         </Link>
         <p className="studio-nav-label">YOUR WORKSPACE</p>
