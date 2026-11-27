@@ -32,5 +32,5 @@ for (const filled of [false, true]) {
     await save(`assets/logo${light ? "-light" : ""}${suffix}.svg`, svg(width, height, `${defs}${base}${nameOverlay}`));
   }
 }
-await save("icon.svg", svg(iconSize, iconSize, `<defs>${image(icon, iconSize, iconSize)}${whiteFilter}${initialsClip}</defs>${filledMark}`));
+await save("icon.svg", svg(iconSize, iconSize, `<circle cx="213" cy="213" r="212" fill="white"/>${image(icon, iconSize, iconSize)}`));
 console.log(`Packaged approved artwork: ${width}×${height}; icon ${iconSize}×${iconSize}.`);
