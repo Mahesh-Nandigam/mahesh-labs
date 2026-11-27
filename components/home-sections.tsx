@@ -3,6 +3,7 @@ import Link from "next/link";
 import { creators } from "@/lib/creators";
 import { type Episode, episodePath } from "@/lib/episodes";
 import { FeaturedEpisodes } from "./featured-episodes";
+import { SocialIcon } from "./social-icon";
 import type homepageContent from "@/content/homepage.json";
 
 type HomepageContent = typeof homepageContent;
@@ -23,7 +24,7 @@ export function Hero({
       <div className="hero-copy">
         <p className="eyebrow">
           <span className="little-mark" aria-hidden="true">
-            ✳
+            <SocialIcon platform="youtube" />
           </span>{" "}
           NEW EPISODES EVERY SATURDAY
         </p>
