@@ -105,7 +105,7 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
           className="newsletter-float"
           aria-label="Open newsletter signup"
           aria-haspopup="dialog"
-          title="Get early access to new podcasts"
+          title="Daily news and early podcast access"
           onClick={() => {
             rememberPrompt();
             setOpen(true);
@@ -155,10 +155,10 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
             <Image src="/assets/brand-mark.svg" width={36} height={36} alt="" />
             <p className="eyebrow">THE MAHESHLABS NEWSLETTER</p>
           </div>
-          <h2 id="newsletter-popup-title">Get early access to new podcasts.</h2>
+          <h2 id="newsletter-popup-title">Daily news. Early podcast access.</h2>
           <p id="newsletter-popup-description">
-            Join the newsletter for early access to new conversations, straight
-            to your inbox.
+            Get daily news and early access to new podcasts, straight to your
+            inbox.
           </p>
           <NewsletterForm
             subscribed={subscribed}
