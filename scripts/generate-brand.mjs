@@ -14,6 +14,11 @@ const whiteFilter = '<filter id="white" color-interpolation-filters="sRGB"><feFl
 const svg = (w, h, content) => `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${w} ${h}" role="img" aria-label="Mahesh Labs">${content}</svg>\n`;
 const save = (path, value) => writeFile(new URL(path, root), value);
 
+await save(
+  "assets/logo-intro.webp",
+  await sharp(artwork).resize({ width: 640 }).webp({ quality: 90, alphaQuality: 100 }).toBuffer(),
+);
+
 // Clip regions are in approved-artwork coordinates; they never alter glyph outlines.
 const nameClip = '<clipPath id="name"><rect x="460" y="0" width="840" height="426"/></clipPath>';
 const initialsClip = '<clipPath id="initials"><rect x="50" y="110" width="330" height="190"/></clipPath>';
@@ -32,5 +37,5 @@ for (const filled of [false, true]) {
     await save(`assets/logo${light ? "-light" : ""}${suffix}.svg`, svg(width, height, `${defs}${base}${nameOverlay}`));
   }
 }
-await save("icon.svg", svg(iconSize, iconSize, `<circle cx="213" cy="213" r="212" fill="white"/>${image(icon, iconSize, iconSize)}`));
+await save("icon.svg", svg(iconSize, iconSize, `<defs>${image(icon, iconSize, iconSize)}${whiteFilter}${initialsClip}</defs>${filledMark}`));
 console.log(`Packaged approved artwork: ${width}×${height}; icon ${iconSize}×${iconSize}.`);
