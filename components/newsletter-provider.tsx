@@ -7,10 +7,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import Image from "next/image";
 import { NewsletterForm } from "./newsletter-form";
 
 const subscribedKey = "maheshlabs-newsletter-subscribed";
-const promptedKey = "maheshlabs-newsletter-prompted";
+const dismissalCountKey = "maheshlabs-newsletter-dismissals";
+const maxDismissals = 3;
 const NewsletterContext = createContext({
   subscribed: false,
   markSubscribed: () => {},
@@ -24,22 +26,29 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
   const prompted = useRef(false);
+  const dismissalCount = useRef(0);
   const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     try {
       setSubscribed(localStorage.getItem(subscribedKey) === "1");
-    } catch {}
-    try {
-      prompted.current = sessionStorage.getItem(promptedKey) === "1";
+      const storedCount = Number(localStorage.getItem(dismissalCountKey));
+      if (Number.isFinite(storedCount) && storedCount > 0) {
+        dismissalCount.current = Math.min(Math.floor(storedCount), maxDismissals);
+      }
     } catch {}
     setReady(true);
   }, []);
 
   function rememberPrompt() {
     prompted.current = true;
+  }
+  function handleClose() {
+    setOpen(false);
+    if (subscribed) return;
+    dismissalCount.current = Math.min(dismissalCount.current + 1, maxDismissals);
     try {
-      sessionStorage.setItem(promptedKey, "1");
+      localStorage.setItem(dismissalCountKey, String(dismissalCount.current));
     } catch {}
   }
   function markSubscribed() {
@@ -51,24 +60,25 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!ready || subscribed || open) return;
-    const started = Date.now();
-    const onExit = (event: MouseEvent) => {
+    if (prompted.current || dismissalCount.current >= maxDismissals) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const showPrompt = () => {
+      // Wait while someone is typing, watching, or using another dialog.
       if (
-        event.relatedTarget !== null ||
-        event.clientY > 0 ||
-        event.buttons !== 0 ||
-        Date.now() - started < 10000 ||
-        prompted.current ||
-        !window.matchMedia("(hover: hover) and (pointer: fine)").matches ||
         document.visibilityState !== "visible" ||
-        document.querySelector("dialog[open]")
-      )
+        document.querySelector("dialog[open]") ||
+        document.activeElement?.matches("input, textarea, select, [contenteditable='true']") ||
+        document.fullscreenElement ||
+        Array.from(document.querySelectorAll("video")).some(video => !video.paused)
+      ) {
+        timer = setTimeout(showPrompt, 5000);
         return;
+      }
       rememberPrompt();
       setOpen(true);
     };
-    document.addEventListener("mouseout", onExit);
-    return () => document.removeEventListener("mouseout", onExit);
+    timer = setTimeout(showPrompt, 5000);
+    return () => clearTimeout(timer);
   }, [ready, subscribed, open]);
 
   useEffect(() => {
@@ -119,7 +129,7 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
         aria-labelledby="newsletter-popup-title"
         aria-describedby="newsletter-popup-description"
         onCancel={() => setOpen(false)}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         onClick={(event) => {
           if (event.target === event.currentTarget) setOpen(false);
         }}
@@ -141,7 +151,10 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
               <path d="m6 6 12 12M6 18 18 6" />
             </svg>
           </button>
-          <p className="eyebrow">THE MAHESHLABS NEWSLETTER</p>
+          <div className="newsletter-popup-brand">
+            <Image src="/assets/brand-mark.svg" width={36} height={36} alt="" />
+            <p className="eyebrow">THE MAHESHLABS NEWSLETTER</p>
+          </div>
           <h2 id="newsletter-popup-title">Get early access to new podcasts.</h2>
           <p id="newsletter-popup-description">
             Join the newsletter for early access to new conversations, straight
