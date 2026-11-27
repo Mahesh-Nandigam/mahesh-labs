@@ -31,18 +31,18 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/icon.svg?v=ml-20261127-2",
+        url: "/icon.svg?v=ml-filled-20261127",
         type: "image/svg+xml",
         sizes: "any",
       },
       {
-        url: "/favicon.ico?v=ml-20261127-2",
+        url: "/favicon.ico?v=ml-filled-20261127",
         type: "image/x-icon",
         sizes: "16x16 32x32 48x48 64x64",
       },
     ],
-    shortcut: "/favicon.ico?v=ml-20261127-2",
-    apple: "/apple-touch-icon.png?v=ml-20261127-2",
+    shortcut: "/favicon.ico?v=ml-filled-20261127",
+    apple: "/apple-touch-icon.png?v=ml-filled-20261127",
   },
 };
 
