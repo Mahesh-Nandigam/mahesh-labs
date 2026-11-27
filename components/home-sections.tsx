@@ -139,7 +139,7 @@ export function OurStory({ content }: { content: HomepageContent }) {
       aria-labelledby="about-title"
     >
       <div className="wrap about-layout">
-        <div>
+        <div className="story-identity">
           <p className="eyebrow">WHY WE’RE HERE</p>
           <span className="about-asterisk" aria-hidden="true">
             <Image src="/assets/brand-mark.svg" width={160} height={160} alt="" />
