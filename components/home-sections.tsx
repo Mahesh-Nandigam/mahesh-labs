@@ -250,14 +250,10 @@ export function Connect() {
           <span className="invite-symbol" aria-hidden="true">
             “
           </span>
-          <h3>
-            Know a story
-            <br />
-            we should hear?
-          </h3>
+          <h3>Who should we invite next?</h3>
           <p>
-            An interesting journey, a good question, or an idea for a
-            conversation. We’d love to hear it.
+            Want to join us as a guest? Tell us what you’d like to talk about.
+            Have someone else in mind? Send us their name.
           </p>
           <a
             className="text-link"
@@ -265,7 +261,7 @@ export function Connect() {
             target="_blank"
             rel="noopener"
           >
-            Say hello on X{" "}
+            Get in touch on X{" "}
             <span className="external-symbol" aria-hidden="true">
               ↗
             </span>
