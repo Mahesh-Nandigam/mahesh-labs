@@ -449,6 +449,10 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
   gap: 2rem;
   width: 100%;
 }
+.site-intro-wordmark {
+  width: min(20rem, 75vw);
+  height: auto;
+}
 .site-intro-words {
   display: grid;
   text-align: center;
