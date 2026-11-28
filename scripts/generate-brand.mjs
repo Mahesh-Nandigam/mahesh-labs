@@ -52,7 +52,8 @@ await save(
 
 // Clip regions are in approved-artwork coordinates; they never alter glyph outlines.
 const nameClip = '<clipPath id="name"><rect x="460" y="0" width="840" height="426"/></clipPath>';
-const initialsClip = '<clipPath id="initials"><rect x="50" y="110" width="330" height="190"/></clipPath>';
+// The letters begin at y=124. Exclude the old ring fragment above them.
+const initialsClip = '<clipPath id="initials"><rect x="50" y="120" width="330" height="180"/></clipPath>';
 const restClip = `<clipPath id="rest"><rect x="440" y="0" width="${width - 440}" height="${height}"/></clipPath>`;
 const filledMark = `<circle cx="213" cy="213" r="212" fill="${blue}"/><use xlink:href="#artwork" filter="url(#white)" clip-path="url(#initials)"/>`;
 // Give standalone marks more space while preserving the approved letterforms.

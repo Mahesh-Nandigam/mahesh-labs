@@ -31,27 +31,4 @@ export interface BlogSummary extends Omit<BlogPost, "body"> {
 }
 export const readingMinutes = (body: string) =>
   Math.max(1, Math.ceil(body.trim().split(/\s+/).length / 220));
-export const headingId = (title: string) =>
-  title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-export function tableOfContents(body: string) {
-  let fenced = false;
-  const counts = new Map<string, number>();
-  return body.split("\n").flatMap((line) => {
-    if (/^\s*(```|~~~)/.test(line)) {
-      fenced = !fenced;
-      return [];
-    }
-    if (fenced) return [];
-    const match = line.match(/^(#{2,3})\s+(.+?)\s*#*$/);
-    if (!match) return [];
-    const title = match[2].replace(/[*_`]/g, ""),
-      base = headingId(title),
-      n = counts.get(base) || 0;
-    counts.set(base, n + 1);
-    return [{ title, id: n ? `${base}-${n}` : base, level: match[1].length }];
-  });
-}
+export { headingId, tableOfContents } from "./markdown";
