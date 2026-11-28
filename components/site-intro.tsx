@@ -73,26 +73,15 @@ export function SiteIntro() {
     >
       <noscript><style>{".site-intro { display: none; }"}</style></noscript>
       <div className="site-intro-content">
-        <div className="site-intro-brand">
-          <Image
-            className="site-intro-mark"
-            src="/assets/brand-mark.svg"
-            width={96}
-            height={96}
-            alt=""
-            preload
-            unoptimized
-          />
-          <Image
-            className="site-intro-wordmark"
-            src="/assets/logo-intro.webp"
-            width={320}
-            height={72}
-            alt=""
-            preload
-            unoptimized
-          />
-        </div>
+        <Image
+          className="site-intro-wordmark"
+          src="/assets/logo-intro.webp"
+          width={320}
+          height={72}
+          alt=""
+          preload
+          unoptimized
+        />
         <div className={`site-intro-words${caption.index === 1 ? " is-emphasis" : ""}`}>
           <span className="site-intro-measure">{captions[caption.index]}</span>
           <span className="site-intro-caption">{caption.text}<span className="site-intro-cursor" /></span>

@@ -450,16 +450,6 @@ nav a,.header-subscribe,.filter,.episode-search input,.hero-actions .text-link,.
   gap: 2rem;
   width: 100%;
 }
-.site-intro-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .75rem;
-}
-.site-intro-mark {
-  width: clamp(4rem, 12vw, 6rem);
-  height: auto;
-}
 .site-intro-wordmark {
   width: min(20rem, 75vw);
   height: auto;
