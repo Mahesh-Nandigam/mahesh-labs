@@ -35,9 +35,9 @@ export function Header() {
           onClick={() => setMenuOpen(false)}
         >
           <Image
-            src="/assets/logo.svg"
-            width={230}
-            height={52}
+            src="/assets/wordmark.svg"
+            width={175}
+            height={35}
             alt="MaheshLabs"
             priority
           />

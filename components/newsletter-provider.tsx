@@ -153,7 +153,11 @@ export function NewsletterProvider({ children }: { children: ReactNode }) {
           </button>
           <div className="newsletter-popup-brand">
             <Image src="/assets/brand-mark.svg" width={36} height={36} alt="" />
-            <p className="eyebrow">THE MAHESHLABS NEWSLETTER</p>
+            <p className="newsletter-popup-name">
+              The{" "}
+              <Image src="/assets/wordmark.svg" width={144} height={28} alt="Mahesh Labs" />
+              {" "}newsletter
+            </p>
           </div>
           <h2 id="newsletter-popup-title">Daily news. Early podcast access.</h2>
           <p id="newsletter-popup-description">
