@@ -119,13 +119,13 @@ export function TopicRibbon() {
     <div className="topic-ribbon" aria-label="Topics we talk about">
       <div className="wrap ribbon-inner">
         <span>CAREERS &amp; GROWTH</span>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true">◆</span>
         <span>BUSINESS &amp; IDEAS</span>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true">◆</span>
         <span>CREATIVITY</span>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true">◆</span>
         <span>LIFE &amp; CULTURE</span>
-        <span aria-hidden="true">✳</span>
+        <span aria-hidden="true">◆</span>
         <span>HUMAN STORIES</span>
       </div>
     </div>
