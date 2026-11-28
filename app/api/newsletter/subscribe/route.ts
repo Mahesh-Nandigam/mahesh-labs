@@ -21,10 +21,12 @@ export async function POST(request: Request) {
       throw new HttpError(400, "Enter a valid email address.");
     if (parsed.data.website) return Response.json({ ok: true });
     await rateLimit(request, "newsletter-signup", 10, 600);
-    await db().query(
-      `INSERT INTO newsletter_subscribers (email,consent_text) VALUES ($1,$2) ON CONFLICT (email) DO NOTHING`,
+    const result = await db().query(
+      `INSERT INTO newsletter_subscribers (email,consent_text) VALUES ($1,$2) ON CONFLICT (email) DO UPDATE SET email=EXCLUDED.email RETURNING status`,
       [parsed.data.email, consentText],
     );
+    if (result.rows[0].status !== "subscribed")
+      throw new HttpError(409, "This address is unsubscribed. Please contact Mahesh Labs if you would like to rejoin.");
     return Response.json({ ok: true });
   } catch (error) {
     return apiError(error);

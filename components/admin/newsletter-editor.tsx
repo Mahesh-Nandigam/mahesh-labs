@@ -5,12 +5,14 @@ import { StudioLink as Link } from "@/components/admin/studio-link";
 import { useRouter } from "next/navigation";
 import type { NewsletterDraft } from "@/lib/studio-validation";
 import { studioRequest } from "./client";
-export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
+import { NewsletterDelivery, type DeliveryState } from "./newsletter-delivery";
+export function NewsletterEditor({ initial, episodes = [], delivery }: { initial: NewsletterDraft; episodes?: { number: number; title: string }[]; delivery?: DeliveryState }) {
   const router = useRouter();
   const [draft, setDraft] = useState(initial),
+    [savedDraft, setSavedDraft] = useState(initial),
     [busy, setBusy] = useState(false),
     [message, setMessage] = useState("");
-  const update = (key: keyof NewsletterDraft, value: string) =>
+  const update = <K extends keyof NewsletterDraft>(key: K, value: NewsletterDraft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }));
   function exportDraft() {
     const body = `Subject: ${draft.subject}\nPreheader: ${draft.preheader}\n\n${draft.body}${draft.earlyAccessUrl ? "\n\nEarly access: " + draft.earlyAccessUrl : ""}`;
@@ -34,8 +36,7 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
             {initial.id ? "Shape your next letter." : "Start a new letter."}
           </h1>
           <p>
-            Write, preview, and save. Sending will be connected to your chosen
-            provider later.
+            Write your letter, send a test, then queue it for your subscribers.
           </p>
         </div>
         <button
@@ -68,7 +69,9 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
                   "PUT",
                   { draft, updatedAt: draft.updatedAt },
                 );
-                setDraft((d) => ({ ...d, updatedAt: result.updatedAt }));
+                const saved = { ...draft, updatedAt: result.updatedAt };
+                setDraft(saved);
+                setSavedDraft(saved);
                 setMessage("Draft saved.");
                 router.refresh();
               }
@@ -117,20 +120,29 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
             />
           </label>
           <label>
-            Early-access link (optional)
+            Early-access episode (optional)
+            <select value={draft.earlyAccessEpisode || ""} onChange={(e) => setDraft((d) => ({ ...d, earlyAccessEpisode: e.target.value ? Number(e.target.value) : null, earlyAccessUrl: e.target.value ? "" : d.earlyAccessUrl }))}>
+              <option value="">No subscriber episode</option>
+              {episodes.map((episode) => <option key={episode.number} value={episode.number}>Episode {episode.number} · {episode.title}</option>)}
+            </select>
+          </label>
+          <p className="studio-help">Set the episode’s full video and public release time first. Every subscriber receives a personal access link.</p>
+          <label>
+            Custom watch link (optional)
             <input
               type="url"
               value={draft.earlyAccessUrl}
               onChange={(e) => update("earlyAccessUrl", e.target.value)}
               maxLength={2048}
               placeholder="https://…"
+              disabled={Boolean(draft.earlyAccessEpisode)}
             />
           </label>
           <label>
             Status
             <select
               value={draft.status}
-              onChange={(e) => update("status", e.target.value)}
+              onChange={(e) => update("status", e.target.value as NewsletterDraft["status"])}
             >
               <option value="draft">Draft</option>
               <option value="archived">Archived</option>
@@ -140,7 +152,7 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
             <button className="studio-button" disabled={busy}>
               {busy ? "Saving…" : "Save draft"}
             </button>
-            <span className="studio-provider-note">Sending not connected</span>
+            <span className="studio-provider-note">{delivery?.setup.ready ? "Email configured" : "Email setup needed"}</span>
           </div>
           <p className="studio-form-message" role="status">
             {message}
@@ -177,19 +189,20 @@ export function NewsletterEditor({ initial }: { initial: NewsletterDraft }) {
                 Watch early
               </a>
             )}
+            {draft.earlyAccessEpisode && <p className="studio-help">A personal “Watch early” button will open episode {draft.earlyAccessEpisode}.</p>}
             <footer>
               You’re receiving this because you signed up for MaheshLabs
               updates.
               <br />
-              Your email provider’s unsubscribe link will go here.
+              Every delivered email includes an unsubscribe link.
             </footer>
           </article>
           <p className="studio-help">
-            A writing preview. Final email styling and subscriber access links
-            will depend on the sending setup.
+            Send a test to check the final email in your inbox.
           </p>
         </aside>
       </div>
+      {draft.id && delivery && <NewsletterDelivery id={draft.id} updatedAt={draft.updatedAt} dirty={busy || JSON.stringify(draft) !== JSON.stringify(savedDraft)} initial={delivery} />}
     </>
   );
 }

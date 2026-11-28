@@ -32,6 +32,7 @@ export const episodeSchema = z.object({
     .nullable(),
   duration: z.string().trim().max(50),
   status: z.string().max(60),
+  publicReleaseAt: z.iso.datetime({ offset: true }).optional(),
   externalPlayback: z.boolean().optional(),
   teaser: mediaUrl.optional(),
   teaserDuration: z.number().int().positive().max(3600).optional(),
@@ -62,6 +63,9 @@ export const episodeSchema = z.object({
       }),
     )
     .max(15),
+}).refine((episode) => !episode.publicReleaseAt || Boolean(episode.videoId), {
+  message: "Add the full YouTube video ID before scheduling early access.",
+  path: ["publicReleaseAt"],
 });
 export const draftSchema = z.object({
   title: z.string().trim().min(1).max(200),
@@ -74,7 +78,8 @@ export const draftSchema = z.object({
     .max(2048)
     .refine((v) => !v || safeUrl(v), "Use an http(s) URL."),
   status: z.enum(["draft", "archived"]),
-});
+  earlyAccessEpisode: z.number().int().positive().nullable().default(null),
+}).refine((draft) => !draft.earlyAccessEpisode || !draft.earlyAccessUrl, "Choose an episode or a custom watch link, rather than both.");
 export type NewsletterDraft = z.infer<typeof draftSchema> & {
   id: string;
   updatedAt: string;

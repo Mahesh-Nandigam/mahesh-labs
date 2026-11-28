@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { EpisodeActions, EpisodePlayer } from "@/components/episode-player";
 import { episodePath } from "@/lib/episodes";
 import { getPublicEpisode } from "@/lib/content-store";
+import { getSubscriberEpisode } from "@/lib/subscriber-access";
+import { EarlyAccessForm } from "@/components/early-access-form";
+import { earlyAccessWindow, releaseTime } from "@/lib/episode-release";
 import "@/app/episode-watch.css";
 
 interface Props {
@@ -31,13 +34,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EpisodePage({ params }: Props) {
   const { number } = await params;
-  const episode = await getPublicEpisode(Number(number));
+  const unlocked = await getSubscriberEpisode(Number(number));
+  const episode = unlocked || await getPublicEpisode(Number(number));
   if (!episode) notFound();
 
   return (
     <main id="main" className="episode-page wrap">
       <article className="episode-page-content">
+        {unlocked && <p className="preview-note" role="status">Subscriber early access · available to everyone on {new Date(episode.publicReleaseAt!).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" })} IST.</p>}
+        {!episode.videoId && episode.publicReleaseAt && <p className="preview-note">The full episode arrives on {new Date(episode.publicReleaseAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" })} IST. Subscribers can watch one day early using their email link.</p>}
         <EpisodePlayer key={episode.number} episode={episode} />
+        {!episode.videoId && episode.publicReleaseAt && Date.now() >= releaseTime(episode) - earlyAccessWindow && Date.now() < releaseTime(episode) && <EarlyAccessForm episode={episode.number} />}
         <div className="dialog-body">
           <p className="eyebrow">
             EPISODE {String(episode.number).padStart(2, "0")} ·{" "}

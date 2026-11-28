@@ -1,0 +1,204 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { dirname, resolve } from "node:path";
+import vm from "node:vm";
+import ts from "typescript";
+
+const root = resolve(import.meta.dirname, "..");
+const nativeRequire = createRequire(import.meta.url);
+const originalEnv = { ...process.env };
+const originalNow = Date.now;
+let query = async () => { throw new Error("Unexpected database query"); };
+let transport = async () => { throw new Error("Unexpected network call"); };
+let cookie = "";
+const modules = new Map();
+function load(file) {
+  if (modules.has(file)) return modules.get(file).exports;
+  const module = { exports: {} };
+  modules.set(file, module);
+  const code = ts.transpileModule(readFileSync(file, "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText;
+  const require = (name) => {
+    if (name === "server-only") return {};
+    if (name === "next/headers") return { cookies: async () => ({ get: () => cookie ? { value: cookie } : undefined }) };
+    if (name === "next/cache") return { unstable_cache: (fn) => fn };
+    if (name.endsWith("/db") || name === "./db") return { db: () => ({ query: (...args) => query(...args) }), contentCacheScope: "test" };
+    if (name.startsWith(".") || name.startsWith("@/")) {
+      const path = name.startsWith("@/") ? resolve(root, name.slice(2)) : resolve(dirname(file), name);
+      if (path.endsWith(".json")) return nativeRequire(path);
+      return load(path + ".ts");
+    }
+    return nativeRequire(name);
+  };
+  vm.runInThisContext(`(function(require,module,exports,process,fetch){${code}\n})`, { filename: file })(require, module, module.exports, process, (...args) => transport(...args));
+  return module.exports;
+}
+const tokens = load(resolve(root, "lib/newsletter-tokens.ts"));
+const release = load(resolve(root, "lib/episode-release.ts"));
+const validation = load(resolve(root, "lib/studio-validation.ts"));
+const email = load(resolve(root, "lib/newsletter-email.ts"));
+const templates = load(resolve(root, "lib/newsletter-template.ts"));
+const delivery = load(resolve(root, "lib/newsletter-delivery.ts"));
+const content = load(resolve(root, "lib/content-store.ts"));
+const access = load(resolve(root, "lib/subscriber-access.ts"));
+const now = Date.parse("2026-12-04T12:00:00Z");
+const id = "a417c48b-1afe-4d41-95b0-e8d9efaec63a";
+const episode = { number: 90, guest: "Test Guest", title: "Early episode", description: "Test", topics: [], role: "Guest", image: "/test.jpg", videoId: "secret12345", duration: "1:00", status: "Watch now", publicReleaseAt: new Date(now + 12 * 3600000).toISOString(), chapters: [{ time: "0:00", seconds: 0, title: "Private chapter" }], links: [], teaser: "/teaser.mp4" };
+const draft = { id, title: "Test newsletter", subject: "A day early", preheader: "Preview", body: "Hello <script>alert(1)</script>\n\nSecond paragraph", earlyAccessUrl: "", earlyAccessEpisode: episode.number, status: "draft", updatedAt: "2026-12-04 10:00:00+00" };
+let passed = 0;
+function pass(label) { console.log("PASS " + label); passed++; }
+try {
+  process.env.NEWSLETTER_TOKEN_SECRET = "newsletter-tests-only-".repeat(3);
+  process.env.EMAIL_PROVIDER = "resend";
+  process.env.EMAIL_API_KEY = "test-key-never-sent";
+  process.env.EMAIL_FROM = "news@example.com";
+  process.env.NEXT_PUBLIC_SITE_URL = "https://example.com";
+  process.env.DATABASE_URL = "mock-database";
+  Date.now = () => now;
+  const token = tokens.signNewsletterToken({ purpose: "access", subscriber: id, episode: 90, expires: now + 60000 });
+  assert.equal(tokens.readNewsletterToken(token, "access").subscriber, id);
+  assert.equal(tokens.readNewsletterToken(token, "reader"), null);
+  assert.equal(tokens.readNewsletterToken(token, "access", now + 60000), null);
+  assert.equal(tokens.readNewsletterToken(token.replace(/^./, token[0] === "A" ? "B" : "A"), "access"), null);
+  assert.equal(tokens.readNewsletterToken(token + ".extra", "access"), null);
+  pass("Signed links reject tampering, expiry, extra fields, and reuse as browser cookies");
+  assert.equal(release.isEarlyAccessOpen(episode, now), true);
+  assert.equal(release.isEarlyAccessOpen(episode, Date.parse(episode.publicReleaseAt) - release.earlyAccessWindow - 1), false);
+  assert.equal(release.isEarlyAccessOpen(episode, Date.parse(episode.publicReleaseAt)), false);
+  assert.equal(release.publicEpisode(episode, now).videoId, null);
+  assert.deepEqual(release.publicEpisode(episode, now).chapters, []);
+  assert.equal(release.publicEpisode(episode, Date.parse(episode.publicReleaseAt)).teaser, undefined);
+  assert.equal(validation.episodeSchema.safeParse({ ...episode, videoId: null }).success, false);
+  assert.equal(validation.episodeSchema.safeParse({ ...episode, publicReleaseAt: "invalid" }).success, false);
+  pass("Release boundaries hide full videos and chapters and retire teaser playback at public release");
+  query = async () => ({ rows: [{ content: episode }], rowCount: 1 });
+  const publicList = await content.getPublicEpisodes();
+  assert.ok(!JSON.stringify(publicList).includes(episode.videoId));
+  assert.ok(!JSON.stringify(publicList).includes("Private chapter"));
+  Date.now = () => Date.parse(episode.publicReleaseAt);
+  assert.equal((await content.getPublicEpisodes())[0].videoId, episode.videoId);
+  Date.now = () => now;
+  cookie = tokens.signNewsletterToken({ purpose: "reader", subscriber: id, episode: 90, expires: now + 60000 });
+  assert.equal((await access.getSubscriberEpisode(90)).videoId, episode.videoId);
+  assert.equal(await access.getSubscriberEpisode(91), null);
+  query = async () => ({ rows: [], rowCount: 0 });
+  assert.equal(await access.getSubscriberEpisode(90), null);
+  cookie = "";
+  pass("Public data omits private playback; reader access is scoped to one episode and rechecks subscription");
+  const rendered = templates.newsletterTemplate(draft, { watchUrl: "https://example.com/watch?a=1&b=2", unsubscribeUrl: "https://example.com/unsubscribe" });
+  assert.ok(rendered.html.includes("&lt;script&gt;"));
+  assert.ok(!rendered.html.includes("<script>"));
+  assert.ok(rendered.html.includes("a=1&amp;b=2"));
+  assert.ok(rendered.text.includes("Unsubscribe: https://example.com/unsubscribe"));
+  assert.ok(email.emailConfiguration().ready);
+  delete process.env.EMAIL_API_KEY;
+  assert.ok(!email.emailConfiguration().ready);
+  await assert.rejects(() => email.sendNewsletterEmail({ to: "reader@example.com", ...rendered, key: "test" }), /not configured/);
+  process.env.EMAIL_API_KEY = "test-key-never-sent";
+  pass("Email templates escape HTML, include plain text and unsubscribe; missing credentials block sends");
+  query = async (sql) => {
+    if (sql.includes("FROM newsletter_drafts WHERE")) return { rows: [draft], rowCount: 1 };
+    if (sql.includes("SELECT content FROM studio_episodes")) return { rows: [{ content: { ...episode, publicReleaseAt: new Date(now + 48 * 3600000).toISOString() } }], rowCount: 1 };
+    throw new Error("Unexpected queue write");
+  };
+  await assert.rejects(() => delivery.queueNewsletter(id, "stale-version"), /draft changed/);
+  await assert.rejects(() => delivery.queueNewsletter(id, draft.updatedAt), /scheduler/);
+  await assert.rejects(() => delivery.queueNewsletter(id, draft.updatedAt, new Date(now + 3600000).toISOString()), /24 hours/);
+  pass("Stale drafts, sends outside the access window, and schedules without an enabled worker are rejected");
+
+  const acceptedBodies = [];
+  let pending = ["first", "unsubscribed"];
+  const updates = [];
+  query = async (sql, params) => {
+    if (sql.startsWith("WITH next AS")) {
+      const next = pending.shift();
+      return { rowCount: next ? 1 : 0, rows: next ? [{ id: next, campaign_id: id, subscriber_id: next === "first" ? id : "b417c48b-1afe-4d41-95b0-e8d9efaec63a" }] : [] };
+    }
+    if (sql.includes("SELECT c.snapshot")) return { rows: [{ snapshot: draft, status: "queued", email: "reader@example.com", subscriber_status: params[1] === id ? "subscribed" : "unsubscribed" }] };
+    if (sql.includes("SELECT content FROM studio_episodes")) return { rows: [{ content: episode }], rowCount: 1 };
+    if (sql.includes("SET status=$2")) updates.push(params);
+    return { rows: [], rowCount: 0 };
+  };
+  transport = async (url, options) => {
+    assert.equal(url, "https://api.resend.com/emails");
+    acceptedBodies.push(JSON.parse(options.body));
+    return Response.json({ id: "provider-accepted" });
+  };
+  assert.deepEqual(await delivery.processNewsletterQueue(), { accepted: 1, failed: 0, unknown: 0, skipped: 1 });
+  assert.equal(acceptedBodies.length, 1);
+  assert.deepEqual(acceptedBodies[0].to, ["reader@example.com"]);
+  assert.ok(!acceptedBodies[0].html.includes(episode.videoId));
+  assert.ok(acceptedBodies[0].html.includes("/early-access/?token="));
+  assert.equal(acceptedBodies[0].headers["List-Unsubscribe-Post"], "List-Unsubscribe=One-Click");
+  assert.deepEqual(updates.map((u) => u[1]), ["accepted", "skipped"]);
+  pass("Worker personalizes one email per recipient and suppresses unsubscribed addresses at send time");
+  pending = ["first", "second"];
+  transport = async () => { throw new Error("network interrupted"); };
+  assert.deepEqual(await delivery.processNewsletterQueue(), { accepted: 0, failed: 0, unknown: 1, skipped: 0 });
+  assert.equal(pending.length, 1);
+  pending = ["first", "second"];
+  transport = async () => Response.json({ error: "bad request" }, { status: 400 });
+  assert.deepEqual(await delivery.processNewsletterQueue(), { accepted: 0, failed: 1, unknown: 0, skipped: 0 });
+  assert.equal(pending.length, 1);
+  pass("Interrupted responses require review; rejected sends stop the batch without sending to the remaining audience");
+  const signup = load(resolve(root, "app/api/newsletter/subscribe/route.ts"));
+  query = async (sql) => ({ rows: sql.includes("INSERT INTO newsletter_subscribers") ? [{ status: "unsubscribed" }] : [], rowCount: 1 });
+  const requestHeaders = { Origin: "https://example.com", "Content-Type": "application/json" };
+  const signupRequest = () => new Request("https://example.com/api/newsletter/subscribe/", { method: "POST", headers: requestHeaders, body: JSON.stringify({ email: "former@example.com", consent: true }) });
+  const suppressed = await signup.POST(signupRequest());
+  assert.equal(suppressed.status, 409);
+  assert.match((await suppressed.json()).error, /unsubscribed/);
+  const crossSite = new Request("https://example.com/api/newsletter/subscribe/", { method: "POST", headers: { ...requestHeaders, Origin: "https://other.example" }, body: JSON.stringify({ email: "reader@example.com", consent: true }) });
+  assert.equal((await signup.POST(crossSite)).status, 403);
+  const unsubscribe = load(resolve(root, "app/newsletter/unsubscribe/route.ts"));
+  const unsubscribeToken = tokens.signNewsletterToken({ purpose: "unsubscribe", subscriber: id });
+  let writes = 0;
+  query = async () => { writes++; return { rows: [], rowCount: 1 }; };
+  const unsubscribeUrl = `https://example.com/newsletter/unsubscribe/?token=${unsubscribeToken}`;
+  assert.equal((await unsubscribe.GET(new Request(unsubscribeUrl))).status, 200);
+  assert.equal(writes, 0);
+  assert.equal((await unsubscribe.POST(new Request(unsubscribeUrl, { method: "POST", body: "List-Unsubscribe=One-Click" }))).status, 200);
+  assert.equal(writes, 1);
+  assert.equal((await unsubscribe.POST(new Request(unsubscribeUrl + "bad", { method: "POST" }))).status, 400);
+  pass("HTTP signup rejects suppressed addresses and foreign origins; scanners cannot unsubscribe with GET");
+
+  const accessRequest = load(resolve(root, "app/api/newsletter/access/route.ts"));
+  let hasSubscriber = false;
+  let accessEmails = 0;
+  query = async (sql) => {
+    if (sql.includes("SELECT content FROM studio_episodes")) return { rows: [{ content: episode }], rowCount: 1 };
+    if (sql.includes("SELECT id FROM newsletter_subscribers")) return { rows: hasSubscriber ? [{ id }] : [], rowCount: hasSubscriber ? 1 : 0 };
+    return { rows: [], rowCount: 0 };
+  };
+  transport = async () => { accessEmails++; return Response.json({ id: "access-message" }); };
+  const getAccess = () => accessRequest.POST(new Request("https://example.com/api/newsletter/access/", { method: "POST", headers: requestHeaders, body: JSON.stringify({ email: "reader@example.com", episode: 90 }) }));
+  const anonymousMessage = await (await getAccess()).json();
+  assert.equal(accessEmails, 0);
+  hasSubscriber = true;
+  assert.deepEqual(await (await getAccess()).json(), anonymousMessage);
+  assert.equal(accessEmails, 1);
+  const gate = load(resolve(root, "app/early-access/route.ts"));
+  query = async () => ({ rows: [{ content: episode }], rowCount: 1 });
+  const unlocked = await gate.GET(new Request(`https://example.com/early-access/?token=${token}`));
+  assert.equal(unlocked.status, 303);
+  assert.equal(unlocked.headers.get("location"), "https://example.com/episodes/90/");
+  assert.match(unlocked.headers.get("set-cookie"), /HttpOnly/i);
+  assert.equal(unlocked.headers.get("referrer-policy"), "no-referrer");
+  assert.equal((await gate.GET(new Request("https://example.com/early-access/?token=invalid"))).status, 410);
+  pass("Access requests do not reveal membership; valid links set a private cookie and redirect to a clean episode URL");
+
+  cookie = "";
+  const adminDelivery = load(resolve(root, "app/api/admin/newsletters/[id]/delivery/route.ts"));
+  assert.equal((await adminDelivery.GET(new Request("https://example.com/api/admin/newsletters/test/delivery/"), { params: Promise.resolve({ id }) })).status, 401);
+  const cron = load(resolve(root, "app/api/cron/newsletters/route.ts"));
+  process.env.CRON_SECRET = "cron-tests-only-".repeat(3);
+  process.env.NEWSLETTER_SCHEDULER_ENABLED = "true";
+  assert.equal((await cron.GET(new Request("https://example.com/api/cron/newsletters/"))).status, 401);
+  assert.equal((await cron.GET(new Request("https://example.com/api/cron/newsletters/", { headers: { Authorization: "Bearer incorrect" } }))).status, 401);
+  pass("Newsletter delivery endpoints require Studio authentication or the scheduler secret");
+  console.log(`Passed ${passed} newsletter regression groups using mocked database and provider transport. No live emails were sent.`);
+} finally {
+  Date.now = originalNow;
+  for (const key of Object.keys(process.env)) if (!(key in originalEnv)) delete process.env[key];
+  Object.assign(process.env, originalEnv);
+}

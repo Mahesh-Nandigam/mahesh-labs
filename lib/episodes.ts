@@ -15,6 +15,7 @@ export interface Episode {
   videoId: string | null;
   duration: string;
   status: string;
+  publicReleaseAt?: string;
   externalPlayback?: boolean;
   teaser?: string;
   teaserDuration?: number;

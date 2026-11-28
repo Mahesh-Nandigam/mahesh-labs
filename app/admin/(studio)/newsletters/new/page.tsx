@@ -12,6 +12,7 @@ export default async function NewNewsletter() {
         body: "",
         earlyAccessUrl: "",
         status: "draft",
+        earlyAccessEpisode: null,
         updatedAt: "",
       }}
     />

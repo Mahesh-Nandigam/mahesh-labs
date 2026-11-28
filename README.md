@@ -20,4 +20,4 @@ npm run build
 npm start
 ```
 
-Requires Node.js 20.9+ and a Next.js server host. This app no longer uses a static export. Email delivery and subscriber early access are planned separately.
+Requires Node.js 20.9+ and a Next.js server host. See [newsletter setup](NEWSLETTER.md) for email delivery, subscriber early access, and scheduling.

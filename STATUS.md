@@ -1,45 +1,36 @@
 # MaheshLabs status
 
-Updated November 24, 2026.
+Updated November 28, 2026.
 
 Implemented:
 
-- Next.js server runtime with Neon Postgres; migrations and non-destructive episode seeding.
-- Password-only Studio at `/admin/`, hashed password, server-side sessions, origin checks, and login rate limits. No subscriber accounts.
-- Compact newsletter signup with signup consent recorded, email normalization, duplicate prevention, subscriber search/pagination, CSV export, and unsubscribe suppression. Public pages include a corner button and the same signup popup on desktop exit intent (once per session after 10 seconds). Successful signup suppresses future prompts in that browser; this is not early-access authentication.
-- Provider-independent newsletter drafts, live writing preview, and text export. No email service or sending integration.
-- Episode drafts/publishing, titles, descriptions, and image/teaser URL editing. Chapters import directly from the YouTube `.txt` chapter file, with timestamp validation and a preview. Guest links use separate label/URL fields with add/remove controls.
-- Native vertical overscroll bounce is disabled across the public site and Studio.
-- Homepage introduction, story, creator introduction, and newsletter copy are hardcoded in `content/homepage.json`. Studio has no Site copy menu, editor, or write API.
-- Homepage shows up to 4 podcasts on mobile and 6 on desktop. More opens `/episodes/`, with 12 conversations per page and search/topic filters.
-- Blog at `/blog/`: covers, authors, tags, reading time, table of contents, pagination, metadata, and safe Markdown. Studio provides an article editor with formatting controls, preview, draft/publish states, and URL slugs.
+- Next.js server runtime with Neon Postgres, password-only Studio, session/origin checks, episode editing, chapters, blog publishing, and subscriber search/export/suppression.
+- Newsletter drafts, live writing preview, text export, optional episode association, and branded HTML/plain-text email rendering.
+- Email-provider adapter for Resend, test-recipient sends, immutable campaign snapshots, per-recipient delivery records, cancellation, manual batches, and an authenticated scheduler endpoint.
+- Queue idempotency, send-time unsubscribe checks, per-recipient messages, provider acceptance tracking, and paused campaigns after failures. Ambiguous responses are held for review and excluded from automatic retries.
+- Public episode release dates in India time. Full playback and chapters stay out of public data before release; subscriber links unlock the episode during the preceding 24 hours. Public playback switches at release without waiting for cached episode data to expire.
+- Signed personal watch links, episode-scoped HTTP-only reader cookies, subscription checks on access, and an email-link request form for current subscribers during early access.
+- Unsubscribe confirmation and standard one-click POST support. GET requests from email scanners do not unsubscribe people. Suppressed addresses receive an explicit error when they try to sign up again.
+- Teasers retire from rendered playback once the full episode is public. Teaser files are retained; YouTube visibility remains a separate YouTube Studio action.
 
-Publishing workflow to discuss:
+Activation remaining:
 
-- Teasers in Neon Object Storage, removed after the full episode goes live.
-- Full episodes available to newsletter subscribers one day early.
-- Unique expiring email links, browser access cookies, forwarding/device rules, and the selected email provider.
-- Email confirmation and provider-managed delivery/unsubscribe events.
+- Resend is confirmed and the account is managed by the project owner's friend. Obtain a dedicated Sending access API key and the exact verified sender address; no provider credentials have been added.
+- Apply migration `003_newsletter_delivery.sql` to the intended Neon branch.
+- Verify the sending domain and configure the server variables documented in [NEWSLETTER.md](NEWSLETTER.md).
+- Send a real test email to the owner and verify the result.
+- Connect and test a scheduler before enabling unattended delivery. No live scheduler has been registered by this change.
+- Deploy the verified website changes through the existing hosting workflow. This task has not deployed or sent emails to the subscriber list.
 
-No early-access schedule, email sending, or automatic teaser deletion is active yet. Image and video fields currently accept existing asset paths or hosted URLs; uploads will follow the storage design.
+Known boundaries:
+
+- Unlisted YouTube and emailed links can be forwarded; this is early availability rather than copy protection.
+- Provider bounce/complaint events are reviewed in the provider dashboard and suppressed manually in Studio. Automatic webhook ingestion is not implemented.
+- Daily news needs an authored newsletter. No automatic news generation or recurring unwritten campaign exists.
+- Automatic resubscription, media uploads, and physical teaser deletion are not implemented.
 
 Validation:
 
-- Newsletter layout/popup: build and TypeScript/content checks passed; browser checks confirmed a single-line desktop heading, a compact 121px banner, same-row email/button at desktop and 390px, popup sizing, close/Escape behavior, focus/scroll restoration, and signup suppression after reload. Popup signup persisted in Neon; the temporary test subscriber was removed. Automatic desktop exit intent is implemented; the browser-chrome pointer gesture could not be automated because native app control was unavailable.
-- Chapter importing passed against the original EP2, EP3, and EP4 YouTube chapter exports (16, 19, and 18 chapters), plus malformed timestamps, duplicate/order checks, BOM/CRLF, and limits. Browser checks confirmed file upload/preview, error preservation, guest-link add/remove fields, no horizontal overflow, and the upward scroll boundary. Build and TypeScript/content checks passed after these changes.
-- After removing Site copy, the build and TypeScript/content checks passed; a production-server smoke check confirmed hardcoded homepage copy and HTTP 404 for the retired editor and save API.
-- Production build and TypeScript/content checks passed.
-- The production runtime returned HTTP 200 for the homepage, archive, blog, and sign-in page; Neon-backed admin login, dashboard, and logout passed.
-- All 12 original end-to-end functional checks passed on the isolated development branch: database connectivity, access controls, password login/session/logout, cross-site protection, signup/consent/duplicates/export/unsubscribe, episode draft/publish/concurrent edits, homepage/episode pagination, newsletter draft persistence, safe blog publishing/Markdown/table of contents, and login rate limiting. The former homepage editing check now verifies hardcoded copy and removed editor routes.
-- Browser checks confirmed 4 podcast cards at 390px and 6 at 1280px, without horizontal overflow; Studio password login and the blog editor preview also worked.
-- The test runner’s final cleanup encountered a proxy connection error. Cleanup succeeded from a fresh process; the runner now batches cleanup in a single transaction.
-- Neon’s production branch received both additive migrations and the existing five episodes.
-- The development branch remains available; automatic branch deletion was blocked because Neon CLI could not refresh credentials in its read-only global config directory.
-
-Integration tests require an isolated `dev-*` Neon branch, a running app using that branch, and `STUDIO_TEST_PASSWORD`; they create and remove temporary test records.
-
-Optional cleanup from `website/` in a normal terminal (the agent could not refresh the global Neon CLI credentials):
-
-```sh
-npx --yes neon@latest branches delete dev-newsletter-studio
-```
+- Newsletter regression tests cover signatures, expiry, release boundaries, public-data filtering, scoped access, safe templates, suppression, queue guards, delivery errors, HTTP handlers, and endpoint authentication using mocked database/provider transport.
+- TypeScript, existing content/Markdown checks, and all 10 newsletter regression groups passed again after confirming Resend. A read-only live migration-status check failed because this session could not connect to Neon. Live Neon integration checks and a real inbox test remain blocked by network access and missing email-provider credentials.
+- Integration tests must use an isolated `dev-*` Neon branch and a running app with `STUDIO_TEST_PASSWORD`; see [NEWSLETTER.md](NEWSLETTER.md).

@@ -36,10 +36,11 @@ export async function rateLimit(
   scope: string,
   limit: number,
   seconds: number,
+  identity?: string,
 ) {
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
-  const key = hashToken(`${scope}:${ip}`);
+  const key = hashToken(`${scope}:${identity || ip}`);
   const globalKey = hashToken("admin-login-global");
   const keys = scope === "admin-login" ? [key, globalKey] : [key];
   const result = await db().query(

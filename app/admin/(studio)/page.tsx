@@ -66,16 +66,16 @@ export default async function Dashboard() {
         </section>
         <section className="studio-panel studio-next">
           <p className="studio-kicker">NEXT UP</p>
-          <h2>Build your newsletter before your first send.</h2>
+          <h2>A letter worth opening.</h2>
           <p>
             Collect subscribers, shape your drafts, and keep early-access links
-            ready. We’ll connect an email provider when you choose one.
+            ready. Send a test from a saved draft before queuing a delivery.
           </p>
           <Link className="studio-button secondary" href="/admin/subscribers/">
             Meet your subscribers
           </Link>
           <div className="studio-provider-note">
-            Email sending is not connected.
+            Check Settings for email delivery and scheduling setup.
           </div>
         </section>
       </div>

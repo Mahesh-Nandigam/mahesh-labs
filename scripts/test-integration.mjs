@@ -162,12 +162,13 @@ try {
     ).status,
     200,
   );
-  await request(
+  const suppressedSignup = await request(
     "/api/newsletter/subscribe/",
     "POST",
     { email, consent: true },
     false,
   );
+  assert.equal(suppressedSignup.status, 409);
   assert.equal(
     (
       await pool.query(

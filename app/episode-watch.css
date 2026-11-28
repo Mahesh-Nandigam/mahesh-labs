@@ -122,3 +122,6 @@
   .episode-chapter-list { max-height: 15.5rem; }
   .episode-chapter { min-height: 4.5rem; }
 }
+.episode-access { padding: 1.5rem; margin: 1.25rem 0; border: 1px solid var(--line); border-radius: .75rem; background: var(--card-bg); }
+.episode-access h2 { font-size: 1.5rem; margin-bottom: .5rem; }
+.episode-access > p { line-height: 1.6; margin-bottom: 1rem; }

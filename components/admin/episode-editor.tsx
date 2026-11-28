@@ -90,6 +90,7 @@ export function EpisodeEditor({
               videoId: get("videoId") || null,
               duration: get("duration"),
               status: get("videoId") ? "Watch now" : "Coming soon",
+              ...(get("publicReleaseAt") ? { publicReleaseAt: new Date(get("publicReleaseAt") + "+05:30").toISOString() } : {}),
               chapters,
               links: links.map(({ name, url }) => ({
                 name: name.trim(),
@@ -184,9 +185,14 @@ export function EpisodeEditor({
               ))}
             </div>
             <p className="studio-help">
-              Keep the video ID empty for a coming-soon episode. Teaser storage
-              and early-access timing will be added separately.
+              Keep the video ID empty for a coming-soon episode. For early access,
+              upload the full video to YouTube as unlisted and set its public release below.
             </p>
+            <label>
+              Public release (India time, optional)
+              <input name="publicReleaseAt" type="datetime-local" defaultValue={initial.publicReleaseAt ? new Date(Date.parse(initial.publicReleaseAt) + 330 * 60000).toISOString().slice(0, 16) : ""} />
+            </label>
+            <p className="studio-help">Subscriber access opens 24 hours before this time. Until public release, visitors see the teaser. Clearing the date makes a published full video available immediately. YouTube visibility is managed separately.</p>
           </section>
           <ChapterUpload
             key={version}

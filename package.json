@@ -12,7 +12,7 @@
     "admin:password": "node scripts/admin-password.mjs",
     "test:integration": "node scripts/test-integration.mjs",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "npm run typecheck && node scripts/check.mjs && node scripts/test-blog-markdown.mjs"
+    "check": "npm run typecheck && node scripts/check.mjs && node scripts/test-blog-markdown.mjs && node scripts/test-newsletter.mjs"
   },
   "engines": {
     "node": ">=20.9.0"

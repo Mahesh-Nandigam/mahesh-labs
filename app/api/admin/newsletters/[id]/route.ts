@@ -18,7 +18,7 @@ export async function PUT(
       throw new HttpError(400, parsed.error.issues[0].message);
     const d = parsed.data.draft;
     const result = await db().query(
-      "UPDATE newsletter_drafts SET title=$1,subject=$2,preheader=$3,body=$4,early_access_url=$5,status=$6,updated_at=clock_timestamp() WHERE id=$7 AND updated_at=$8::timestamptz RETURNING updated_at::text",
+      "UPDATE newsletter_drafts SET title=$1,subject=$2,preheader=$3,body=$4,early_access_url=$5,status=$6,early_access_episode=$9,updated_at=clock_timestamp() WHERE id=$7 AND updated_at=$8::timestamptz RETURNING updated_at::text",
       [
         d.title,
         d.subject,
@@ -28,6 +28,7 @@ export async function PUT(
         d.status,
         id,
         parsed.data.updatedAt,
+        d.earlyAccessEpisode,
       ],
     );
     if (!result.rowCount)

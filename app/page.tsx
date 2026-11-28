@@ -16,6 +16,8 @@ import { getBlogPosts } from "@/lib/blog-store";
 import { BlogCards } from "@/components/blog-cards";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [episodes, posts] = await Promise.all([
     getPublicEpisodes(),

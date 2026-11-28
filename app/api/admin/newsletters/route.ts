@@ -9,8 +9,8 @@ export async function POST(request: Request) {
       throw new HttpError(400, parsed.error.issues[0].message);
     const d = parsed.data;
     const result = await db().query(
-      "INSERT INTO newsletter_drafts (title,subject,preheader,body,early_access_url,status) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id",
-      [d.title, d.subject, d.preheader, d.body, d.earlyAccessUrl, d.status],
+      "INSERT INTO newsletter_drafts (title,subject,preheader,body,early_access_url,status,early_access_episode) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id",
+      [d.title, d.subject, d.preheader, d.body, d.earlyAccessUrl, d.status, d.earlyAccessEpisode],
     );
     return Response.json({ id: result.rows[0].id }, { status: 201 });
   } catch (error) {
